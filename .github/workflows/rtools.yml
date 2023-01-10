@@ -1,0 +1,35 @@
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+name: R-CMD-check
+
+jobs:
+  R-CMD-check:
+      runs-on: ${{ matrix.config.os }}
+      name: R- ${{ matrix.config.r }}) Rtools (${{ matrix.config.rtools }}) winpath - ${{ matrix.config.windows-path-include-mingw }}
+      strategy:
+        fail-fast: false
+        matrix:
+          config:
+            - {os: windows-latest, r: 'release', rtools: '42', windows-path-include-mingw: 'false'}
+            - {os: windows-latest, r: 'release', rtools: '', windows-path-include-mingw: 'false'}
+            - {os: windows-latest, r: '3.6', rtools: '', windows-path-include-mingw: 'false'}
+            - {os: windows-latest, r: '3.6', rtools: '', windows-path-include-mingw: 'true'}
+
+      env:
+        GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+        R_KEEP_PKG_SOURCE: yes
+
+      steps:
+        - uses: actions/checkout@v2
+        - uses: r-lib/actions/setup-r@v2
+          with:
+            r-version: ${{ matrix.config.r }}
+            rtools-version: ${{ matrix.config.rtools }}
+            windows-path-include-mingw: ${{ matrix.config.windows-path-include-mingw }}
+        - shell: bash
+          run: |
+            sed 's/:/\n/g' <<< $PATH
