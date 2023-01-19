@@ -11,8 +11,11 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     - name: Update Discussion
-      run: |
-        DISCUSSION_NUMBER=1
-        REPO=e-gugliotti-NOAA/github-actions-test
-        TOKEN=${{ secrets.GITHUB_TOKEN }}
-        curl -H "Authorization: Bearer $TOKEN" -X PATCH -d '{"body":"Hello, this is an updated discussion"}' "https://api.github.com/repos/$REPO/discussions/$DISCUSSION_NUMBER"
+      uses: peter-evans/create-or-update-comment@v2
+      with:
+        repository: e-gugliotti-NOAA/github-actions-test
+        comment-id: 4772640
+        body: |
+          Hello, this is an updated discussion.
+          With multiple lines.
+        reactions: hooray
