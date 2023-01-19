@@ -1,0 +1,19 @@
+name: Update Discussion
+
+on:
+  schedule:
+    - cron: '0 12 * * *'
+
+jobs:
+  update_discussion:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Update Discussion
+      run: |
+        DISCUSSION_NUMBER=1
+        REPO=e-gugliotti-NOAA/github-actions-test
+        TOKEN=${{ secrets.GITHUB_TOKEN }}
+        curl -H "Authorization: Bearer $TOKEN" -X PATCH -d '{"body":"Hello, this is an updated discussion"}' "https://api.github.com/repos/e-gugliotti-NOAA/github-actions-test/discussions/1"
