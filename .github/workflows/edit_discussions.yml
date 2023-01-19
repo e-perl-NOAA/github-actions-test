@@ -15,4 +15,4 @@ jobs:
         DISCUSSION_NUMBER=1
         REPO=e-gugliotti-NOAA/github-actions-test
         TOKEN=${{ secrets.GITHUB_TOKEN }}
-        curl -H "Authorization: Bearer $TOKEN" -X PATCH -d '{"body":"Hello, this is an updated discussion"}' "https://api.github.com/repos/e-gugliotti-NOAA/github-actions-test/discussions/1"
+        curl -H "Authorization: Bearer $TOKEN" -X PATCH -d '{"body":"Hello, this is an updated discussion"}' "https://api.github.com/repos/$REPO/discussions/$DISCUSSION_NUMBER"
