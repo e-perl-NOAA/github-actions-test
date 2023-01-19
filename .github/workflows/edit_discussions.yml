@@ -14,7 +14,7 @@ jobs:
       uses: peter-evans/create-or-update-comment@v2
       with:
         repository: e-gugliotti-NOAA/github-actions-test
-        comment-id: 4772640
+        comment-id: 1
         body: |
           Hello, this is an updated discussion.
           With multiple lines.
