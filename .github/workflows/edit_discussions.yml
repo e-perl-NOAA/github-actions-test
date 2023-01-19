@@ -1,8 +1,7 @@
 name: Update Discussion
 
 on:
-  schedule:
-    - cron: '0 12 * * *'
+  workflow_call:
 
 jobs:
   update_discussion:
