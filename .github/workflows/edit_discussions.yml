@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - uses: actions/checkout@v3
     
     - name: Update Issue
       uses: peter-evans/create-or-update-comment@v2
