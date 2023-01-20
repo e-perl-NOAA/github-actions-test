@@ -1,20 +1,19 @@
-name: Update Discussion
+name: Update Issue
 
 on:
   workflow_dispatch:
 
 jobs:
-  update_discussion:
+  update_issue:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Update Discussion
+    - name: Update Issue
       uses: peter-evans/create-or-update-comment@v2
       with:
-        repository: e-gugliotti-NOAA/github-actions-test
-        comment-id: 1
+        issue-number: 2
         body: |
           Hello, this is an updated discussion.
           With multiple lines.
