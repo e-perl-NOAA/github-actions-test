@@ -1,19 +1,25 @@
-name: Update Issue
+name: Edit Issue
 
 on:
   workflow_dispatch:
 
 jobs:
-  update_issue:
+  edit_issue:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Edit issue
-      uses: actions/github-script@v3
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        script: |
-          const issue = await issues.get({owner: context.repo.owner, repo: context.repo.repo, issue_number: 2});
-          issue.title = "New issue title";
-          issue.body = "New issue body";
-          issues.update(issue);
+      - name: Edit issue
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const core = require('@actions/core');
+            const { GitHub } = require('@actions/github');
+            const github = new GitHub(core.getInput('github_token'));
+            const { issues } = github;
+            const issue_number = core.getInput('issue_number');
+          
+            const issue = await issues.get({owner: context.repo.owner, repo: context.repo.repo, issue_number: 2});
+            issue.title = "New issue title";
+            issue.body = "New issue body";
+            issues.update(issue);
