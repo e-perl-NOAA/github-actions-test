@@ -6,8 +6,6 @@ on:
 jobs:
   update_issue:
     runs-on: ubuntu-latest
-    env:
-      GITHUB_PAT: ${{ secrets.GH_TOKEN }}
 
     steps:
     - uses: actions/checkout@v3
@@ -15,6 +13,7 @@ jobs:
     - name: Update Issue
       uses: peter-evans/create-or-update-comment@v2
       with:
+        token: ${{ secrets.GH_TOKEN }}
         issue-number: 2
         body: |
           Hello, this is an updated discussion.
