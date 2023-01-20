@@ -1,20 +1,15 @@
 name: Update Issue
 
 on:
-  workflow_dispatch:
+  push:
 
 jobs:
   update_issue:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v3
-    
     - name: Update Issue
       uses: peter-evans/create-or-update-comment@v2
       with:
-        token: ${{ secrets.DISCUSSIONS_TEST }}
-        repository: e-gugliotti-NOAA/github-actions-test
         issue-number: 2
         body: |
           Hello, this is an updated discussion.
