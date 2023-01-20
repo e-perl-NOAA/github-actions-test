@@ -8,27 +8,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Get the target repository and branch
-      id: vars
-      run: |
-        repository=${{ github.event.client_payload.slash_command.repository }}
-        if [[ -z "$repository" ]]; then repository=${{ github.repository }}; fi
-        echo "repository=$repository" >> $GITHUB_OUTPUT
-        branch=${{ github.event.client_payload.slash_command.branch }}
-        if [[ -z "$branch" ]]; then branch="main"; fi
-        echo "branch=$branch" >> $GITHUB_OUTPUT
-        
-    # Checkout the branch to test
-    - uses: actions/checkout@v3
+    - name: Edit issue
+      uses: actions/github-script@v3
       with:
-        repository: ${{ steps.vars.outputs.repository }}
-        ref: ${{ steps.vars.outputs.branch }}
-        
-    - name: Update Issue
-      uses: peter-evans/create-or-update-comment@v2
-      with:
-        issue-number: 2
-        body: |
-          Hello, this is an updated discussion.
-          With multiple lines.
-        reactions: hooray
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const issue = await issues.get({owner: context.repo.owner, repo: context.repo.repo, issue_number: 2});
+          issue.title = "New issue title";
+          issue.body = "New issue body";
+          issues.update(issue);
