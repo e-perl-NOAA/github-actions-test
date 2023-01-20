@@ -6,6 +6,8 @@ on:
 jobs:
   update_issue:
     runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GH_TOKEN }}
 
     steps:
     - name: Get the target repository and branch
