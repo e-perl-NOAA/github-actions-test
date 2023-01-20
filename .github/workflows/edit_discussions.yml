@@ -12,7 +12,7 @@ jobs:
     - name: Update Issue
       uses: peter-evans/create-or-update-comment@v2
       with:
-        token: ${{ secrets.GH_TOKEN }}
+        token: ${{ secrets.discussions_test }}
         repository: e-gugliotti-NOAA/github-actions-test
         issue-number: 2
         body: |
