@@ -9,8 +9,7 @@ jobs:
     - name: Update Issue
       uses: peter-evans/create-or-update-comment@v2
       with:
-        issue-number: 2
-        comment-id: 1550855269
+        issue-number: 1
         body: |
           Hello, this is an updated discussion.
           With multiple lines.
