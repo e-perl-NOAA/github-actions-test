@@ -2,7 +2,6 @@ name: Update Issue
 
 on:
   push:
-
 jobs:
   update_issue:
     runs-on: ubuntu-latest
