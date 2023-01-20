@@ -10,6 +10,7 @@ jobs:
       uses: peter-evans/create-or-update-comment@v2
       with:
         issue-number: 2
+        comment-id: 1550855269
         body: |
           Hello, this is an updated discussion.
           With multiple lines.
