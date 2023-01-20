@@ -13,7 +13,6 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const { GitHub } = require('@actions/github');
             const github = new GitHub(core.getInput('github_token'));
             const { issues } = github;
             const issue_number = core.getInput('issue_number');
