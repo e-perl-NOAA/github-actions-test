@@ -6,10 +6,9 @@ jobs:
   update_comment:
     runs-on: ubuntu-latest
     steps:
-    - name: Update Issue
+    - name: Update Comment
       uses: peter-evans/create-or-update-comment@v2
       with:
         commend-id: 1550855269
         body: |
-          Hello, this is an updated discussion.
-          With multiple lines.
+         Update body test
