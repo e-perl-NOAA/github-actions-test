@@ -9,6 +9,6 @@ jobs:
     - name: Update Comment
       uses: peter-evans/create-or-update-comment@v2
       with:
-        comment-id: 1550855269
+        comment-id: 1398843948
         body: |
          Update body test
