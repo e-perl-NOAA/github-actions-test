@@ -12,6 +12,9 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libcurl4-openssl-dev
+
+      - name: setup R  
+        uses: r-lib/actions/setup-r@v2
         
       - name: Get the latest SS3 executable and put in path
         run:  |
@@ -22,3 +25,8 @@ jobs:
           export PATH=/usr/local/bin/ss3:$PATH
           echo "/usr/local/bin/ss3" >> $GITHUB_PATH
           echo $PATH
+          
+      - name: see if R can detect ss3
+        run: |
+          Sys.which("ss3")
+        shell: Rscript {0}
