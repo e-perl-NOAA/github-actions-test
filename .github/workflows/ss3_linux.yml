@@ -40,5 +40,5 @@ jobs:
       - name: create tag
         uses: rickstaa/action-create-tag@v1
         with:
-          tag: ${{ steps.get-latest-tag-unix.outputs.tag }}
+          tag: "${{ steps.get-latest-tag-unix.outputs.tag }}"
        
