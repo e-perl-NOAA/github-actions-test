@@ -1,7 +1,7 @@
 name: Update Comment
 
 on:
-  push:
+  workflow_dispatch:
 jobs:
   update_comment:
     runs-on: ubuntu-latest
