@@ -47,6 +47,7 @@ jobs:
       - name: add label
         uses: actions-ecosystem/action-add-labels@v1
         with:
+          number: ${{ github.event.issue.number }}
           labels: update model files
       
       - name: Get the ss last tag on unix
