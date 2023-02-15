@@ -38,7 +38,8 @@ jobs:
           echo "tag=${latest_tag}" >> $GITHUB_OUTPUT
           
       - name: create tag
-        uses: rickstaa/action-create-tag@v1
+        uses: mathieudutour/github-tag-action@v6.1
         with:
-          tag: "${{ steps.get-latest-tag-unix.outputs.tag }}"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          custom_tag: ${{ steps.get-latest-tag-unix.outputs.tag }}
        
