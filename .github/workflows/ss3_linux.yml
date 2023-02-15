@@ -31,6 +31,27 @@ jobs:
           Sys.which("ss3")
         shell: Rscript {0}
         
+      - name: Setup git user
+        uses: fregante/setup-git-user@v1
+      
+      - name: Commit
+        run: |
+          git add .
+          git commit -m "update user example files to new ss3 release"
+        
+      - name: Create Pull Request 
+        uses: peter-evans/create-pull-request@v3
+        with:
+          commit_message: Update model files to new ss exe
+          branch: add-update-workflow-new
+          title: 'Update model files to new ss exe'
+      
+      - name: add label
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          labels: update model files
+      
+      
       - name: Get the ss last tag on unix
         id: get-latest-tag-unix
         run: |
