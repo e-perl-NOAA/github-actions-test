@@ -8,6 +8,9 @@ jobs:
 
     steps:
       
+      - name: checkout rep
+        uses: actions/checkout@v3
+      
       - name: install libcurl
         run: |
           sudo apt-get update
@@ -50,7 +53,6 @@ jobs:
         uses: actions-ecosystem/action-add-labels@v1
         with:
           labels: update model files
-      
       
       - name: Get the ss last tag on unix
         id: get-latest-tag-unix
