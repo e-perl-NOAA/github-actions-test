@@ -44,20 +44,21 @@ jobs:
           branch: add-update-workflow-new
           title: 'Update model files to new ss exe'
       
- #     - name: add label
- #       uses: actions-ecosystem/action-add-labels@v1
- #       with:
- #         number: ${{ github.event.issue.number }}
- #         labels: update model files
-      
       - name: Get the ss last tag on unix
         id: get-latest-tag-unix
         run: |
           latest_tag=$(git ls-remote --tags https://github.com/nmfs-stock-synthesis/stock-synthesis.git | tail -1 | sed 's/.*\/v//')
           echo "tag=${latest_tag}" >> $GITHUB_OUTPUT
           
+      - name: Get the ss last tag on unix
+        id: get-latest-tag-repo-unix
+        run: |
+          latest_tag_repo=$(git ls-remote --tags | tail -1 | sed 's/.*\/v//')
+          echo "tag=${latest_tag_repo}" >> $GITHUB_OUTPUT
+          
       - name: create tag
         uses: mathieudutour/github-tag-action@v6.1
+        if: ${{ steps.get-latest-tag-unix.outputs.tag != steps.get-latest-tag-repo-unix.outputs.tag}}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           custom_tag: ${{ steps.get-latest-tag-unix.outputs.tag }}
