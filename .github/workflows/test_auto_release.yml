@@ -1,0 +1,33 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      BUILD_NUMBER: ${{ github.run_number }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+          
+      - name: Create new tag
+        id: tag
+        run: |
+          git tag -a v${{ env.BUILD_NUMBER }} -m "Release version v${{ env.BUILD_NUMBER }}"
+          echo ::set-output name=tag::v${{ env.BUILD_NUMBER }}
+          
+      - name: Build release artifact
+        run: |
+          echo "Hello, world!" > sample1.txt
+
+      - name: Build another release artifact
+         run: |
+          echo "Hello, outer space!" > sample2.txt 
+          
