@@ -16,6 +16,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+      
+      - name: Set up Git
+        run: |
+          git config --local user.email "elizabeth.gugliotti@noaa.gov"
+          git config --local user.name "e-gugliotti-NOAA"
           
       - name: Create new tag
         id: tag
