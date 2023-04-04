@@ -16,17 +16,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      
-      - name: Set up Git
-        run: |
-          git config --local user.email "elizabeth.gugliotti@noaa.gov"
-          git config --local user.name "e-gugliotti-NOAA"
+        with:
+          fetch-depth: 0
           
-      - name: Create new tag
-        id: tag
-        run: |
-          git tag -a v${{ env.BUILD_NUMBER }} -m "Release version v${{ env.BUILD_NUMBER }}"
-          echo ::set-output name=tag::v${{ env.BUILD_NUMBER }}
+      - name: Application Version
+        id: version
+        uses: paulhatch/semantic-version@v5.0.2
+        with:
+          tag_prefix: "v"
           
       - name: Build release artifact
         run: |
