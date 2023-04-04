@@ -28,6 +28,6 @@ jobs:
           echo "Hello, world!" > sample1.txt
 
       - name: Build another release artifact
-         run: |
+        run: |
           echo "Hello, outer space!" > sample2.txt 
           
