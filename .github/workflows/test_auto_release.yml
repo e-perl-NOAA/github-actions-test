@@ -38,6 +38,15 @@ jobs:
         run: |
           echo "Hello, outer space!" > sample2.txt 
       
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ steps.version.outputs.version }}
+          release_name: Release ${{ steps.version.outputs.version }}
+          draft: false
+          prerelease: false
+          
       - name: Upload release artifact 1
         uses: actions/upload-release-asset@v1
         with:
