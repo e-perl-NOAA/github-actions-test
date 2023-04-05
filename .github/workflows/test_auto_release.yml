@@ -4,12 +4,16 @@ on:
   workflow_dispatch:
 
 jobs:
+        
   release:
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    steps:
+    steps: 
+      - name: Call html workflow
+        uses: nmfs-stock-synthesis/workflows/.github/workflows/build-ss3-manual-html.yml@main
+        
       - name: Checkout code
         uses: actions/checkout@v3
         with:
@@ -31,9 +35,9 @@ jobs:
         run: |
           echo "Hello, world!" > sample1.txt
 
-      - name: Build another release artifact
-        run: |
-          echo "Hello, outer space!" > sample2.txt 
+#      - name: Build another release artifact
+#        run: |
+#          echo "Hello, outer space!" > sample2.txt
       
       - name: Create Release
         id: create_release
@@ -56,6 +60,6 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./sample2.txt
-          asset_name: sample2.txt
-          asset_content_type: application/txt
+          asset_path: ./SS330_User_Manual.html
+          asset_name: SS330_User_Manual.html
+          asset_content_type: application/html
