@@ -3,8 +3,7 @@ name: Release
 on:
   workflow_dispatch:
 
-jobs:
-        
+jobs:     
   release:
     runs-on: ubuntu-latest
     env:
