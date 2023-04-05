@@ -22,11 +22,11 @@ jobs:
         with:
           tag_prefix: "v"
       
-      - name: create tag
-        uses: mathieudutour/github-tag-action@v6.1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          custom_tag: ${{ steps.version.outputs.version }}
+#      - name: create tag
+#        uses: mathieudutour/github-tag-action@v6.1
+#        with:
+#          github_token: ${{ secrets.GITHUB_TOKEN }}
+#          custom_tag: ${{ steps.version.outputs.version }}
           
       - name: Build release artifact
         run: |
