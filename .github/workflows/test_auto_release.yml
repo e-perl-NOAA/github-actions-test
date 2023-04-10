@@ -38,10 +38,10 @@ jobs:
         shell: Rscript {0}
      
       - name: Commit changes
-        run: |
-          git add "docs/index.md"
-          git commit -m "update index version"
-          git push -u origin master
+        uses: EndBug/add-and-commit@v9
+        with: 
+          add: 'docs/index.md'
+          message: 'update index version'
 
       - name: Build release artifact
         run: |
