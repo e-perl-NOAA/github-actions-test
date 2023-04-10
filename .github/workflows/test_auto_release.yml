@@ -36,6 +36,12 @@ jobs:
           index[7] <- gsub("[0-9].[0-9][0-9].[0-9][0-9]", version, index[7])
           writeLines(index, "docs/index.md")
         shell: Rscript {0}
+     
+      - name: Commit changes
+        run: |
+          git add "docs/index.md"
+          git commit -m "update index version"
+          git push -u origin master
 
       - name: Build release artifact
         run: |
