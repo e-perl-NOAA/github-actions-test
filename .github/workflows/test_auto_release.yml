@@ -23,7 +23,20 @@ jobs:
         with:
           tag_prefix: "v"
           version_format: "v${major}.${minor}.${patch}"
-          
+      
+      - name: Create version.txt
+        run: echo ${{ steps.version.outputs.version }} > version.txt
+      
+      - name: Update version in index.md
+        run: |
+          version <- readLines("version.txt", encoding = "UTF-8")
+          index <- readLines("docs/index.md", encoding = "UTF-8")
+          version <- gsub("v", "", version)
+          index[6] <- gsub("[0-9].[0-9][0-9].[0-9][0-9]", version, index[6])
+          index[7] <- gsub("[0-9].[0-9][0-9].[0-9][0-9]", version, index[7])
+          writeLines(index, "docs/index.md")
+        shell: Rscript {0}
+
       - name: Build release artifact
         run: |
           echo "Hello, world!" > sample1.txt
@@ -56,16 +69,3 @@ jobs:
           asset_path: ./sample2.txt
           asset_name: sample2.txt
           asset_content_type: application/txt
-      
-      - name: Create version.txt
-        run: echo ${{ steps.version.outputs.version }} > version.txt
-      
-      - name: Update version in index.md
-        run: |
-          version <- readLines("version.txt", encoding = "UTF-8")
-          index <- readLines("docs/index.md", encoding = "UTF-8")
-          version <- gsub("v", "", version)
-          index[6] <- gsub("[0-9].[0-9][0-9].[0-9][0-9]", version, index[6])
-          index[7] <- gsub("[0-9].[0-9][0-9].[0-9][0-9]", version, index[7])
-          writeLines(index, "docs/index.md")
-        shell: Rscript {0}
