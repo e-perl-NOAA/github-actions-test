@@ -22,12 +22,7 @@ jobs:
         uses: paulhatch/semantic-version@v5.0.2
         with:
           tag_prefix: "v"
-
-#      - name: create tag
-#        uses: mathieudutour/github-tag-action@v6.1
-#        with:
-#          github_token: ${{ secrets.GITHUB_TOKEN }}
-#          custom_tag: ${{ steps.version.outputs.version }}
+          version_format: "v${major}.${minor}.${patch}"
           
       - name: Build release artifact
         run: |
