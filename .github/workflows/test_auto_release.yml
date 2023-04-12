@@ -35,13 +35,20 @@ jobs:
           index[6] <- gsub("[0-9].[0-9][0-9].[0-9][0-9]", version, index[6])
           index[7] <- gsub("[0-9].[0-9][0-9].[0-9][0-9]", version, index[7])
           writeLines(index, "docs/index.md")
+          writeLines(index, "index.md")
         shell: Rscript {0}
      
-      - name: Commit changes
+      - name: Commit changes to docs folder
         uses: EndBug/add-and-commit@v9
         with: 
           add: 'docs/index.md'
-          message: 'update index version'
+          message: 'update index version in docs folder'
+
+      - name: Commit changes to main repo
+        uses: EndBug/add-and-commit@v9
+        with: 
+          add: 'index.md'
+          message: 'update index version in main repo'
 
       - name: Build release artifact
         run: |
@@ -50,7 +57,7 @@ jobs:
       - name: Build another release artifact
         run: |
           echo "Hello, outer space!" > sample2.txt
-      
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -75,3 +82,11 @@ jobs:
           asset_path: ./sample2.txt
           asset_name: sample2.txt
           asset_content_type: application/txt
+
+      - name: Upload release artifact 3
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./index.md
+          asset_name: index.md
+          asset_content_type: application/md
