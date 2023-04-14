@@ -38,11 +38,16 @@ jobs:
           writeLines(index, "index.md")
         shell: Rscript {0}
      
-      - name: Commit changes to docs folder
-        uses: EndBug/add-and-commit@v9
-        with: 
-          add: 'docs/index.md'
-          message: 'update index version in docs folder'
+      - name: move html manual to the deployment folder
+        run: |
+          rm -f docs/index.md
+          mv index.md docs/index.md
+
+#      - name: Commit changes to docs folder
+#        uses: EndBug/add-and-commit@v9
+#        with: 
+#           add: 'docs/index.md'
+#           message: 'update index version in docs folder'
 
       - name: Commit changes to main repo
         uses: EndBug/add-and-commit@v9
