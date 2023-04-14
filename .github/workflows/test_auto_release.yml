@@ -37,17 +37,12 @@ jobs:
           writeLines(index, "docs/index.md")
           writeLines(index, "index.md")
         shell: Rscript {0}
-     
-      - name: move html manual to the deployment folder
-        run: |
-          rm -f docs/index.md
-          mv index.md docs/index.md
 
-#      - name: Commit changes to docs folder
-#        uses: EndBug/add-and-commit@v9
-#        with: 
-#           add: 'docs/index.md'
-#           message: 'update index version in docs folder'
+      - name: Commit changes to docs folder
+        uses: EndBug/add-and-commit@v9
+        with: 
+          add: 'docs/index.md'
+          message: 'update index version in docs folder'
 
       - name: Commit changes to main repo
         uses: EndBug/add-and-commit@v9
@@ -92,6 +87,6 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./docs/index.md
+          asset_path: ./index.md
           asset_name: index.md
           asset_content_type: application/md
