@@ -41,7 +41,6 @@ jobs:
       - name: Commit changes to docs folder
         uses: EndBug/add-and-commit@v9
         with: 
-          remove: './docs/index.md'
           add: './docs/index.md'
           message: 'update index version in docs folder'
 
