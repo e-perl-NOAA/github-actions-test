@@ -22,14 +22,13 @@ body:
     description: A summary of pertinent information on this issue that occurred in the discussion or via email. The person creating the issue is responsible for adding info from the discussion to this section.
   validations:
     required: true
-- type: checkboxes
+- type: textarea
   id: tasks
   attributes:
     label: Items to do
-    description: Please create a list of tasks to be completed for this issue.
-    options:
-      - label: Add list here.
-        required: true
+    description: Please create a list of tasks to be completed for this issue with the checkboxes.
+  validations:
+      required: true
 - type: checkboxes 
   id: documentation
   attributes:
