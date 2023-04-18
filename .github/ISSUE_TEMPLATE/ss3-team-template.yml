@@ -35,17 +35,19 @@ body:
     required: true
 - type: checkboxes 
   id: documentation
-  validations:
-    required: true
   attributes:
     label: Does documentation already exist?
     description: Please check one of the boxes.
     options:
-      - label: No, documentation and section to be added is provided below.
-      - label: Yes, the link to the section in the documentation is [here](insert link to section in documentation)
+      - label: No, documentation and section needs to be added and is provided below.
+      - label: Yes, the link to the section in the documentation is provided below.
       - label: Yes, but further documentation/instruction needs to be added and is provided below.
+  validations:
+    required: true
 - type: textarea
   id: add-doc
   attributes:
     label: Text to add to SS3 documentation
     description: Please add the text that needs to be added to the documentation along with which section it should be added to.
+  validations:
+    required: true
