@@ -1,12 +1,8 @@
----
 name: SS3 Team Issues - New Template
 about: Issue template for the SS3 team
 title: "[Issue]"
 labels: issue
 assignees: e-gugliotti-NOAA
-
----
-
 body:
   - type: markdown
     attributes:
