@@ -38,6 +38,8 @@ body:
       - label: No, documentation and section to be added is provided below.
       - label: Yes, the link to the section in the documentation is [here](insert link to section in documentation)
       - label: Yes, but further documentation/instruction needs to be added and is provided below.
+  validations:
+    required: true
 - type: textarea
   id: add-doc
   attributes:
