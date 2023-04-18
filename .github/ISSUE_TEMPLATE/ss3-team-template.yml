@@ -49,5 +49,8 @@ body:
   attributes:
     label: Text to add to SS3 documentation
     description: Please add the text that needs to be added to the documentation along with which section it should be added to.
+    placeholder: |
+      - Documentation can be found in section 8.4.2 of the documentation [here](link)
+      - The following text should be added at the end of the second paragraph in that section "add text"
   validations:
     required: true
