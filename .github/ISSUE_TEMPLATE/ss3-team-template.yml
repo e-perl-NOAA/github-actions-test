@@ -30,6 +30,7 @@ body:
     placeholder: |
       - [] Item 1
       - [] Item 2
+    value: "- [] First Item"
   validations:
     required: true
 - type: checkboxes 
