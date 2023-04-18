@@ -1,0 +1,50 @@
+---
+name: SS3 Team Issues - New Template
+about: Issue template for the SS3 team
+title: "[Issue]"
+labels: issue
+assignees: e-gugliotti-NOAA
+
+---
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this issue!
+  - type: textarea
+    id: describe
+    attributes:
+      label: Issue Description
+      description: Please provide a description of the issue.
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary of Issue History and Discussion 
+      description: A summary of pertinent information on this issue that occurred in the discussion or via email. The person creating the issue is responsible for adding info from the discussion to this section.
+    validations:
+      required: true
+  - type: checkboxes
+    id: tasks
+    attributes:
+      label: Items to do
+      description: Please create a list of tasks to be completed for this issue.
+      options:
+        - label: Add list here.
+          required: true
+  - type: checkboxes
+    id: documentation
+    attributes:
+      label: Does documentation already exist?
+      description: Please check one of the boxes.
+      options:
+        - label: No, documentation and section to be added is provided below.
+        - label: Yes, the link to the section in the documentation is [here](insert link to section in documentation)
+        - label: Yes, but further documentation/instruction needs to be added and is provided below.
+  - type: textarea
+    id: add-doc
+    attributes:
+      label: Text to add to SS3 documentation
+      description: Please add the text that needs to be added to the documentation along with which section it should be added to.
