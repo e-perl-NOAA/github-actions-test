@@ -28,8 +28,8 @@ body:
     label: Items to do
     description: Please create a list of tasks to be completed for this issue with the checkboxes.
     placeholder: |
-      [] Item 1
-      [] Item 2
+      - [] Item 1
+      - [] Item 2
   validations:
       required: true
 - type: checkboxes 
