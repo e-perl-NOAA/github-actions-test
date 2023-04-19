@@ -42,21 +42,21 @@ body:
 - type: checkboxes 
   id: documentation
   attributes:
-    label: Does documentation already exist in the SS3 Dcoumentation?
-    description: Please review the [SS3 documentation](https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html) and check one of the boxes.
+    label: Does documentation already exist in the SS3 User Manual?
+    description: Please review the [SS3 User Manual](https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html) and check the box that applies.
     options:
-      - label: No, documentation needs to be added and is provided below.
-      - label: Yes, the link to the section in the documentation is provided below.
-      - label: Yes, but further documentation/instruction needs to be added and is provided below.
+      - label: Yes, the link to the section in the SS3 User Manual is provided below.
+      - label: Yes, but further documentation needs to be added and is provided below.
+      - label: No, the text that should be added to the SS3 User Manual pertaining to this issue is provided below.
   validations:
     required: true
 - type: textarea
   id: add-doc
   attributes:
-    label: Text to add to SS3 Documentation
-    description: Please add the text that needs to be added to the documentation along with which section it should be added to.
+    label: Text to add to the SS3 User Manual
+    description: Please add the text that needs to be added to the SS3 User Manual along with which section it should be added to.
     placeholder: |
-      - Documentation can be found in section 8.4.2 of the documentation [here](link)
+      - Documentation can be found in section 8.4.2 of the SS3 User Manual [here](link)
       - The following text should be added at the end of the second paragraph in that section: "add text"
   validations:
     required: true
