@@ -6,20 +6,20 @@ body:
 - type: markdown
   attributes:
     value: |
-      **Instructions for title**
+      #**Instructions for title**
         - Edit the text in the brackets "[ ]". This should be a short "label" for the issue suitable that helps categorize the issue in change log. This should be one to three words, you might even find referencing the existing labels helpful.
         - Edit the text after the colon ":". This should be a short, descriptive title for the issue.
 - type: textarea
   id: describe
   attributes:
-    label: Issue Description
+    label: Issue description
     description: Please provide a description of the issue.
   validations:
     required: true
 - type: textarea
   id: summary
   attributes:
-    label: Summary of Issue History, Discussion, and Major Aspects of Code Development 
+    label: Summary of issue history, discussion, and major aspects of code development 
     description: A summary of pertinent information on this issue, including major aspects of code development, that occurred in the discussion or via email. This section can be added on to/edited at any time and should be completely summarized prior to closing by the person that created the issue.
     placeholder: |
       - This issue is realted to issue #X.
@@ -46,7 +46,7 @@ body:
     value: |
       ___
       
-      **Other Issue Considerations**
+      #**Other Issue Considerations**
 - type: checkboxes 
   id: documentation
   attributes:
