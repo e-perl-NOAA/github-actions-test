@@ -8,7 +8,7 @@ body:
     value: |
       # **Main Issue Information**
       **Instructions for title**
-        - Edit the text in the brackets "[ ]". This should be a short "label" for the issue suitable that helps categorize the issue in change log. This should be one to three words, you might even find referencing the existing labels helpful.
+        - Edit the text in the brackets "[ ]". This should be a short "label" for the issue suitable that helps categorize the issue in change log. This should be one to three words, you might even find referencing the existing labels (under "labels" in the panel on the right) helpful.
         - Edit the text after the colon ":". This should be a short, descriptive title for the issue.
 - type: textarea
   id: describe
