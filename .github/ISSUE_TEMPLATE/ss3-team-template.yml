@@ -1,6 +1,6 @@
 name: SS3 Team Issues - New Template
 description: Issue template for SS3 team members ONLY
-title: "[SS3 Team Issue]"
+title: "[SS3 Team Issue]: "
 assignees: e-gugliotti-NOAA
 body:
 - type: markdown
@@ -18,11 +18,11 @@ body:
   id: summary
   attributes:
     label: Summary of Issue History, Discussion, and Major Aspects of Code Development 
-    description: A summary of pertinent information on this issue, including major aspects of code development, that occurred in the discussion/via email. The person creating the issue is responsible for adding info from the discussion to this section.
+    description: A summary of pertinent information on this issue, including major aspects of code development, that occurred in the discussion or via email. This section can be added on to/edited at any time and should be completely summarized prior to closing by the person that created the issue.
     placeholder: |
       - This issue is realted to issue #X.
       - Will need to create an example vignette for this feature.
-      - example input change
+      - Below is example input change.
         ```
         #_MG_type method st_year end_year 
         1 1 2002 2003 # (M) NatMort 
@@ -42,7 +42,7 @@ body:
 - type: checkboxes 
   id: documentation
   attributes:
-    label: Does documentation already exist?
+    label: Does documentation already exist in the [SS3 documentation](https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html)?
     description: Please check one of the boxes.
     options:
       - label: No, documentation needs to be added and is provided below.
@@ -53,7 +53,7 @@ body:
 - type: textarea
   id: add-doc
   attributes:
-    label: Text to add to SS3 documentation
+    label: Text to add to SS3 Documentation
     description: Please add the text that needs to be added to the documentation along with which section it should be added to.
     placeholder: |
       - Documentation can be found in section 8.4.2 of the documentation [here](link)
