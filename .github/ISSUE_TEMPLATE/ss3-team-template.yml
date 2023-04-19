@@ -47,13 +47,13 @@ body:
     options:
       - label: Yes, the link to the section in the SS3 User Manual is provided below.
       - label: Yes, but further documentation needs to be added and is provided below.
-      - label: No, the text that should be added to the SS3 User Manual pertaining to this issue is provided below.
+      - label: No, the documentation that should be added to the SS3 User Manual pertaining to this issue is provided below.
   validations:
     required: true
 - type: textarea
   id: add-doc
   attributes:
-    label: Text to add to the SS3 User Manual
+    label: Documentation to add to the SS3 User Manual OR link to existing documentation
     description: Please add the text that needs to be added to the SS3 User Manual along with which section it should be added to.
     placeholder: |
       - Documentation can be found in section 8.4.2 of the SS3 User Manual [here](link)
