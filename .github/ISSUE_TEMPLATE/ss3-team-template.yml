@@ -42,8 +42,8 @@ body:
 - type: checkboxes 
   id: documentation
   attributes:
-    label: Does documentation already exist in the [SS3 documentation](https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html)?
-    description: Please check one of the boxes.
+    label: Does documentation already exist in the SS3 Dcoumentation?
+    description: Please review the [SS3 documentation](https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html) and check one of the boxes.
     options:
       - label: No, documentation needs to be added and is provided below.
       - label: Yes, the link to the section in the documentation is provided below.
