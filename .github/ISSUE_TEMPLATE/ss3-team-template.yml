@@ -1,6 +1,6 @@
 name: SS3 Team Issues - New Template
 description: Issue template for SS3 team members ONLY
-title: "[SS3 Team Issue]: "
+title: "[SS3 Team Issue]: Title of Issue Here"
 assignees: e-gugliotti-NOAA
 body:
 - type: markdown
