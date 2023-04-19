@@ -10,7 +10,7 @@ body:
       **Instructions**
         - Edit the title text in the brackets "[ ]". This should be a short "label" for the issue suitable that helps categorize the issue in change log. This should be one to three words, you might even find referencing the existing labels (under "labels" in the panel on the right) helpful.
         - Edit the title text after the colon ":". This should be a short, descriptive title for the issue.
-        - In the sidebar, add labels.
+        - In the sidebar, add labels that apply to this issue.
         - Fill out information below and update the summary with pertinent information from the comments/discussion. 
 - type: textarea
   id: describe
