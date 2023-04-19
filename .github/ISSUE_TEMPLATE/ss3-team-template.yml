@@ -23,12 +23,12 @@ body:
       - This issue is realted to issue #X.
       - Will need to create an example vignette for this feature.
       - example input change
-        ```
-        #_MG_type method st_year end_year 
-        1 1 2002 2003 # (M) NatMort 
-        4 1 2016 2018 # RecrDist 
-        -9999 -1 -1 -1
-        ```
+      ```
+      #_MG_type method st_year end_year 
+      1 1 2002 2003 # (M) NatMort 
+      4 1 2016 2018 # RecrDist 
+      -9999 -1 -1 -1
+      ```
   validations:
     required: true
 - type: textarea
