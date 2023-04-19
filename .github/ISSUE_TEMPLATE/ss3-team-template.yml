@@ -44,8 +44,8 @@ body:
 - type: markdown
   attributes:
     value: |
-    ---
-    Other Issue Considerations
+      ___
+      Other Issue Considerations
 - type: checkboxes 
   id: documentation
   attributes:
