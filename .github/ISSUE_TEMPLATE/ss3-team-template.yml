@@ -73,12 +73,12 @@ body:
     required: true
 - type: checkboxes 
   id: r4ss
-  attributes:
+  attributes: 
     label: r4ss changes
-    description: Please review the [SS3 User Manual](https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html) and check the box that applies.
+    description: Please check one of the boxes to indicate if r4ss changes are needed.
     options:
       - label: No, this issue doesn't require changes to r4ss
-      - label: Yes, this issue requires changes to r4ss (if checking this box, please add @iantaylor-NOAA as an Assignee in the panel to the right)
-      - label: I don't know and would like an r4ss consult (if checking this box, please add @iantaylor-NOAA as an Assignee in the panel to the right)
+      - label: Yes, this issue requires changes to r4ss (if checking this box, please add @iantaylor-NOAA as an Assignee in the panel to the right).
+      - label: I don't know and would like an r4ss consult (if checking this box, please add @iantaylor-NOAA as an Assignee in the panel to the right).
   validations:
     required: true
