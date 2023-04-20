@@ -59,8 +59,6 @@ body:
       - label: Yes, the link to the section in the SS3 User Manual is provided below.
       - label: Yes, but further documentation needs to be added and is provided below.
       - label: No, the documentation that should be added to the SS3 User Manual pertaining to this issue is provided below.
-  validations:
-    required: true
 - type: textarea
   id: add-doc
   attributes:
