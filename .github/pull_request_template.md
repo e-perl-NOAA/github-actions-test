@@ -14,7 +14,7 @@ Summary of pull request.
  - [ ] No test files are required for this issue.
 
 ### What tests/review still need to be done? Who can do it, and by when is it needed (ideally)?
-
+Test on X has been done but needs review by PERSON.
 
 ## Is there an input change for users to Stock Synthesis? 
 **If this pull request is related to an issue, please include that the input change is in the summary of that issue.**
