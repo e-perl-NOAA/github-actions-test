@@ -1,5 +1,5 @@
 ## Concisely (20 words or less) describe what has been changed/addressed in the pull request.
-> - Summary goes here.
+> Summary goes here.
 
 ## Please Link issue(s) that this pull request resolves and/or is related to.
 **Please make sure that all comments/discussion in this pull request that is related to an issue gets put in the summary of that issue.**
@@ -14,7 +14,7 @@
  - [ ] No test files are required for this issue.
 
 ### What tests/review still need to be done? Who can do it, and by when is it needed (ideally)?
-> - Test/review goes here.
+> Test/review goes here.
 
 ## Is there an input change for users to Stock Synthesis? 
 **If this pull request is related to an issue, please include that the input change is in the summary of that issue.**
