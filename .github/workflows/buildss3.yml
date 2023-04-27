@@ -28,19 +28,19 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-#       - name: checkout admb, windows
-#         if: matrix.config.os == 'windows-latest'
-#         uses: actions/checkout@v3
-#         with:
-#           repository: admb-project/admb
-#           path: admb
-#           ref: admb-13.1
-       
-      - name: get microsoft visual c++
+      - name: checkout admb, windows
         if: matrix.config.os == 'windows-latest'
-        uses: ilammy/msvc-dev-cmd@v1
-#       - name: Set up R
-#         uses: r-lib/actions/setup-r@v2
+        uses: actions/checkout@v3
+        with:
+          repository: admb-project/admb
+          path: admb
+          ref: admb-13.1
+       
+#       - name: get microsoft visual c++
+#         if: matrix.config.os == 'windows-latest'
+#         uses: ilammy/msvc-dev-cmd@v1
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
       
       - name: get info on gcc version and path
         if: matrix.config.os == 'windows-latest'
@@ -48,12 +48,14 @@ jobs:
           g++ -v
           echo $env:GITHUB_PATH
         
-#       - name: make admb windows
-#         if: matrix.config.os == 'windows-latest'
-#         run: |
-#           cd admb 
-#           nmake
-#       - name: move admb and put in path windows
-#         if: matrix.config.os == 'windows-latest'
-#         run: |
-#           echo "D:\a\github-actions-test\github-actions-test\admb\build\admb\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+      - name: make admb windows
+        if: matrix.config.os == 'windows-latest'
+        run: |
+          cd admb 
+          make clead
+          cd admb
+          make
+      - name: move admb and put in path windows
+        if: matrix.config.os == 'windows-latest'
+        run: |
+          echo "D:\a\github-actions-test\github-actions-test\admb\build\admb\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
