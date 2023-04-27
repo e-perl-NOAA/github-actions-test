@@ -46,7 +46,7 @@ jobs:
         if: matrix.config.os == 'windows-latest'
         run: |
           cd admb 
-          nmake
+          make
       - name: move admb and put in path windows
         if: matrix.config.os == 'windows-latest'
         run: |
