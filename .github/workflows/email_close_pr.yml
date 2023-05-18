@@ -38,17 +38,9 @@ jobs:
       - name: Print the found email
         run: echo "The email is ${{ steps.test.outputs.email }}"
      
-      - name: Send mail
-        uses: dawidd6/action-send-mail@v3
+      - name: send email
+        uses: cinotify/github-action@main
         with:
-    # mail server settings
-          server_address: smtp.example.com
-          server_port: 25
-    # email subject
-          subject: PR closed; reminder to fill out info in issue
-    # email body as text
-          body: PR ${{ steps.pr.outputs.pull_request_number }} has been closed, please remember to move any pertinent information to the linked issues ${{ steps.get-issues.outputs.issues }}  
-    # comma-separated string, send email to
           to: ${{ steps.test.outputs.email }}
-    # from email name
-          from: GitHub bot
+          subject: 'PR closed; reminder to fill out info in issue'
+          body: PR ${{ steps.pr.outputs.pull_request_number }} has been closed, please remember to move any pertinent information to the linked issues ${{ steps.get-issues.outputs.issues }}
