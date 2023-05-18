@@ -1,0 +1,54 @@
+name: email_when_close_pr
+
+on:
+  pull_request:
+    types: [ closed ]
+
+jobs: 
+  email_when_close_pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Pull Request Number
+        id: pr
+        run: echo "::set-output name=pull_request_number::$(gh pr view --json number -q .number || echo "")"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Get issues
+        id: get-issues
+        uses: mondeja/pr-linked-issues-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Print linked issue numbers
+        run: echo ${{ steps.get-issues.outputs.issues }}   
+        
+#      - name: View PR author
+#        run: |
+#          echo ${{ github.event.pull_request.user.login }}
+#          echo ${{ github.event.pull_request.user.email }}
+  
+      - name: get email
+        id: test
+        uses: evvanErb/get-github-email-by-username-action@v1.25
+        with:
+          github-username: ${{ github.triggering_actor }}
+      
+  # Use the output from the `test` step
+      - name: Print the found email
+        run: echo "The email is ${{ steps.test.outputs.email }}"
+     
+      - name: Send mail
+        uses: dawidd6/action-send-mail@v3
+        with:
+    # mail server settings
+          server_address: smtp.example.com
+          server_port: 25
+    # email subject
+          subject: PR closed; reminder to fill out info in issue
+    # email body as text
+          body: PR ${{ steps.pr.outputs.pull_request_number }} has been closed, please remember to move any pertinent information to the linked issues ${{ steps.get-issues.outputs.issues }}  
+    # comma-separated string, send email to
+          to: ${{ steps.test.outputs.email }}
+    # from email name
+          from: GitHub bot
