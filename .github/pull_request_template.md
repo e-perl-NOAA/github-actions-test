@@ -19,6 +19,7 @@
 - [ ] The input change is in the issue summary.
 - [ ] There is no issue related to this pull request so the input change is below.
 - [ ] No, there was no input change.
+
 ```
 If there is no issue related to this pull request, example stock synthesis input goes here. 
 Otherwise, delete code chunk.
