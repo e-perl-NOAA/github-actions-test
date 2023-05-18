@@ -43,4 +43,4 @@ jobs:
         with:
           to: ${{ steps.test.outputs.email }}
           subject: 'PR closed; reminder to fill out info in issue'
-          body: PR ${{ steps.pr.outputs.pull_request_number }} has been closed, please remember to move any pertinent information to the linked issues ${{ steps.get-issues.outputs.issues }}
+          body: "PR ${{ steps.pr.outputs.pull_request_number }} has been closed, please remember to move any pertinent information to the linked issues ${{ steps.get-issues.outputs.issues }}"
