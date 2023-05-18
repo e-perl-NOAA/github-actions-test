@@ -36,6 +36,7 @@ jobs:
      
       - name: send email
         uses: cinotify/github-action@main
+        if: ${{ steps.get-issues.outputs.issues != null }}
         with:
           to: ${{ steps.test.outputs.email }}
           subject: 'PR closed; reminder to fill out info in issue'
