@@ -10,7 +10,8 @@ jobs:
     steps:
       - name: Get Pull Request Number
         id: pr
-        run: echo "::set-output name=pull_request_number::$(gh pr view --json number -q .number || echo "")"
+        run: |
+          echo github.event.pull_request.number = ${{ github.event.pull_request.number }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
@@ -43,4 +44,4 @@ jobs:
         with:
           to: ${{ steps.test.outputs.email }}
           subject: 'PR closed; reminder to fill out info in issue'
-          body: "PR ${{ steps.pr.outputs.pull_request_number }} has been closed, please remember to move any pertinent information to the linked issues ${{ steps.get-issues.outputs.issues }}"
+          body: "PR ${{ github.event.pull_request.number }} has been closed, please remember to move any pertinent information to the linked issues ${{ steps.get-issues.outputs.issues }}"
