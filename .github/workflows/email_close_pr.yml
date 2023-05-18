@@ -23,11 +23,6 @@ jobs:
           
       - name: Print linked issue numbers
         run: echo ${{ steps.get-issues.outputs.issues }}   
-        
-#      - name: View PR author
-#        run: |
-#          echo ${{ github.event.pull_request.user.login }}
-#          echo ${{ github.event.pull_request.user.email }}
   
       - name: get email
         id: test
