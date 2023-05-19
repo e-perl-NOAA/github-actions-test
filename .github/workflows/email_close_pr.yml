@@ -9,7 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get Pull Request Number
-        id: pr
         run: |
           echo github.event.pull_request.number = ${{ github.event.pull_request.number }}
           echo github.event.pull_request.html_url = ${{ github.event.pull_request.html_url }}
