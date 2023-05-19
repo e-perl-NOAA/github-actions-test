@@ -12,6 +12,7 @@ jobs:
         id: pr
         run: |
           echo github.event.pull_request.number = ${{ github.event.pull_request.number }}
+          echo github.event.pull_request.html_url = ${{ github.event.pull_request.html_url }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
@@ -37,4 +38,4 @@ jobs:
         with:
           to: ${{ steps.test.outputs.email }}
           subject: 'PR closed; reminder to fill out info in issue'
-          body: "PR #${{ github.event.pull_request.number }} in the nmfs-stock-synthesis/stock-synthesis repository has been closed, please remember to move any pertinent information to the following issue(s) linked to this PR: #${{ steps.get-issues.outputs.issues }}"
+          body: "PR #${{ github.event.pull_request.number }} (${{ github.event.pull_request.html_url }}) in the nmfs-stock-synthesis/stock-synthesis repository has been closed, please remember to move any pertinent information to the following issue(s) linked to this PR: #${{ steps.get-issues.outputs.issues }}"
