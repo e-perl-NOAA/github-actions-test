@@ -30,6 +30,7 @@ jobs:
         with:
           github-username: ${{ github.triggering_actor }}
      
+      # send an email 
       - name: send email
         uses: cinotify/github-action@main
         if: ${{ steps.get-issues.outputs.issues != null }}
@@ -37,3 +38,18 @@ jobs:
           to: ${{ steps.test.outputs.email }}
           subject: 'PR closed; reminder to fill out info in issue'
           body: "PR ${{ github.event.pull_request.number }} has been closed, please remember to move any pertinent information to the linked issues ${{ steps.get-issues.outputs.issues }}"
+      
+      # try using other email action; requires user name and password in a secret
+      - name: send gmail
+        uses: dawidd6/action-send-mail@v3
+        if: ${{ steps.get-issues.outputs.issues != null }}
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{secrets.EMAIL_USERNAME}}
+          password: ${{secrets.EMAIL_PASSWORD}}
+          to: ${{ steps.test.outputs.email }}
+          from: stock synthesis
+          subject: A PR that you opened has closed; reminder to fill out missing info in related issue
+          body: PR ${{ github.event.pull_request.number }} has been closed, please remember to move any pertinent information to the linked issues ${{ steps.get-issues.outputs.issues }}
+     
