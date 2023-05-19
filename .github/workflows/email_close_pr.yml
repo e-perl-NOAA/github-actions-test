@@ -37,5 +37,4 @@ jobs:
         with:
           to: ${{ steps.test.outputs.email }}
           subject: 'PR in stock synthesis repository is closed; reminder to fill out info in issue'
-          body: "PR #${{ github.event.pull_request.number }} (https://github.com/e-gugliotti-NOAA/github-actions-test/pull/${{ github.event.pull_request.number }}) in the nmfs-stock-synthesis/stock-synthesis repository has been closed, 
-                 please remember to move any pertinent information to the following issue(s) linked to this PR: #${{ steps.get-issues.outputs.issues }}"
+          body: "PR #${{ github.event.pull_request.number }} (https://github.com/e-gugliotti-NOAA/github-actions-test/pull/${{ github.event.pull_request.number }}) in the nmfs-stock-synthesis/stock-synthesis repository has been closed, please remember to move any pertinent information to the following issue(s) linked to this PR: #${{ steps.get-issues.outputs.issues }}"
