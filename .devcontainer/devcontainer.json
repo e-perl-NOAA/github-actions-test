@@ -1,9 +1,14 @@
 {
-	"image": "mcr.microsoft.com/devcontainers/universal:2",
+        "image": "ghcr.io/rocker-org/devcontainer/r-ver:4.2",
 	"features": {
 		"ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
-            "packages": "make, gcc, g++"
-        }
+            "packages": "make,gcc,g++,cmake,clang-tidy,clang-format"
+		},
+	        "ghcr.io/rocker-org/devcontainer-features/r-packages:1": {
+			"packages": "Matrix,cli,rlang,RcppEigen,r4ss,ggplot2,dplyr,scales,covr",
+			 "installSystemRequirements": true
+		}
 	},
-    "postCreateCommand": "bash .devcontainer/setup-admb.sh"
+    "postCreateCommand": "bash .devcontainer/setup-admb.sh",
+    "postCreateCommand": "echo 'options(repos = c(CRAN = \"https://cloud.r-project.org\"))' | sudo sh -c 'cat - >>\"${R_HOME}/etc/Rprofile.site\"'"
 }
