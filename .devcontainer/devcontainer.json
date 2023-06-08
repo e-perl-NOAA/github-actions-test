@@ -1,4 +1,5 @@
 {
+	"name": "R (rocker/r-ver base)",
         "image": "ghcr.io/rocker-org/devcontainer/r-ver:4.2",
 	"features": {
 		"ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
