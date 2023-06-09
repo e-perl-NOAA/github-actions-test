@@ -1,7 +1,14 @@
-wget https://github.com/admb-project/admb/releases/download/admb-13.1/admb-13.1-linux.zip
-sudo unzip admb-13.1-linux.zip -d /usr/local/bin
-sudo chmod 777 /usr/local/bin/admb-13.1/bin/admb
-export PATH=$PATH:/usr/local/bin/admb-13.1/bin
+sudo apt-get update
+sudo apt-get install flex
+sudo apt-get install bison
+wget https://github.com/admb-project/admb/releases/download/admb-13.1/admb-13.1-src.zip
+sudo unzip admb-13.1-src.zip
+cd admb-13.1
+sudo make install
+sudo ln -sf /usr/local/admb/admb /usr/local/bin/admb
+cd examples/admb/simple
+sudo admb simple.tpl
+sudo ./simple
 
 
 wget https://github.com/nmfs-stock-synthesis/stock-synthesis/refs/tags/v3.30.21.zip
