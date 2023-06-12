@@ -2,10 +2,11 @@ sudo apt-get update
 sudo apt-get install flex
 sudo apt-get install bison
 wget https://github.com/admb-project/admb/releases/download/admb-13.1/admb-13.1-src.zip
-sudo unzip admb-13.1-src.zip
-cd admb-13.1
+sudo unzip admb-13.1-src.zip -d admb
+cd admb
 sudo make install
 sudo ln -sf /usr/local/admb/admb /usr/local/bin/admb
+export PATH=$PATH:/usr/local/admb/admb
 cd examples/admb/simple
 sudo admb simple.tpl
 sudo ./simple
