@@ -11,9 +11,11 @@ cd examples/admb/simple
 sudo admb simple.tpl
 sudo ./simple
 
-wget https://github.com/nmfs-stock-synthesis/stock-synthesis/refs/tags/v3.30.21.zip
-sudo unzip v3.30.21.zip -d /usr/local/bin
-sudo chmod 777 /usr/local/bin/stock-synthesis-3.30.21
-/bin/bash ./Make_SS_330_new.sh -b
+wget https://github.com/nmfs-stock-synthesis/stock-synthesis/archive/refs/heads/main.zip
+sudo unzip main.zip -d /usr/local/bin
+sudo chmod 777 /usr/local/bin/stock-synthesis-main
+cd /usr/local/bin/stock-synthesis-main
+sudo make
+mv /usr/local/bin/stock-synthesis-main/ss /workspaces/github-actions-test/ss
 
 echo 'options(repos = c(CRAN = \"https://cloud.r-project.org\"))' | sudo sh -c 'cat - >>\"${R_HOME}/etc/Rprofile.site\"'
