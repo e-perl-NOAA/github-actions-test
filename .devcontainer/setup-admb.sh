@@ -10,7 +10,6 @@ cd examples/admb/simple
 sudo admb simple.tpl
 sudo ./simple
 
-
 wget https://github.com/nmfs-stock-synthesis/stock-synthesis/refs/tags/v3.30.21.zip
 sudo unzip v3.30.21.zip -d /usr/local/bin
 sudo chmod 777 /usr/local/bin/stock-synthesis-3.30.21
