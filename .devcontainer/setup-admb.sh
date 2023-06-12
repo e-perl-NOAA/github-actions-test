@@ -8,6 +8,7 @@ sudo chmod 777 admb
 cd admb
 sudo make
 sudo cp -Rvf build/admb /usr/local/admb
+sudo ln -sf /usr/local/admb/admb /usr/local/bin/admb
 export PATH=$PATH:/usr/local/admb/admb
 cd examples/admb/simple
 sudo admb simple.tpl
