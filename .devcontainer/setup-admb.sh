@@ -1,6 +1,6 @@
 sudo apt-get update
-sudo apt-get install flex
-sudo apt-get install bison
+sudo apt-get -y install flex
+sudo apt-get -y install bison
 wget https://github.com/admb-project/admb/releases/download/admb-13.1/admb-13.1-src.zip
 sudo unzip admb-13.1-src.zip -d admb
 cd admb
