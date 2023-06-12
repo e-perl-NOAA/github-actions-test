@@ -4,6 +4,7 @@ sudo apt-get -y install bison
 wget https://github.com/admb-project/admb/releases/download/admb-13.1/admb-13.1-src.zip
 sudo unzip admb-13.1-src.zip && mv admb-13.1 admb
 sudo rm admb-13.1-src.zip
+sudo rm -r admb-13.1
 sudo chmod 777 admb
 cd admb
 sudo make
@@ -20,4 +21,5 @@ sudo chmod 777 /usr/local/bin/stock-synthesis-main
 cd /usr/local/bin/stock-synthesis-main
 sudo make
 mv /usr/local/bin/stock-synthesis-main/ss /workspaces/github-actions-test/ss
-echo 'options(repos = c(CRAN = \"https://cloud.r-project.org\"))' | sudo sh -c 'cat - >>\"${R_HOME}/etc/Rprofile.site\"'
+echo 'options(repos = c(CRAN = \"https://cloud.r-project.org\"))'
+sudo sh -c 'cat - >>\"${R_HOME}/etc/Rprofile.site\"'
