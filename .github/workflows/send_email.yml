@@ -2,6 +2,7 @@ name: 'Sends Email'
 
 on: 
   push:
+  workflow-dispatch:
 
 jobs:
   send-email:
