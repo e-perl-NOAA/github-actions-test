@@ -25,6 +25,37 @@ jobs:
           git fetch --tags
           git fetch --prune --unshallow || true
           
-      - name: Git more tags
+      - name: Get latest release ubuntu
+        id: get_release
         run: |
-          git fetch $(git describe --tags $(git rev-list --tags --max-count=10))
+          RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
+          RELEASE=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep ubuntu22 |head -n1)
+          echo "RELEASE_TAG=$RELEASE" >> $GITHUB_OUTPUT
+
+      - name: Get latest release ubuntu
+        id: get_release1
+        run: |
+          RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
+          RELEASE=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macOS-12 |head -n1)
+          echo "RELEASE_TAG=$RELEASE" >> $GITHUB_OUTPUT
+      
+      - name: Get latest release ubuntu
+        id: get_release2
+        run: |
+          RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
+          RELEASE=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macos-13$ |head -n1)
+          echo "RELEASE_TAG=$RELEASE" >> $GITHUB_OUTPUT
+
+      - name: Get latest release ubuntu
+        id: get_release3
+        run: |
+          RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
+          RELEASE=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macos-14$ |head -n1)
+          echo "RELEASE_TAG=$RELEASE" >> $GITHUB_OUTPUT
+
+      - name: Get latest release ubuntu
+        id: get_release4
+        run: |
+          RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
+          RELEASE=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep win22 |head -n1)
+          echo "RELEASE_TAG=$RELEASE" >> $GITHUB_OUTPUT
