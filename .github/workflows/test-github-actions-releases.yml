@@ -37,7 +37,7 @@ jobs:
         id: get_release_macos12
         run: |
           RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
-          RELEASE_MACOS12=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macOS-12 |head -n1)
+          RELEASE_MACOS12=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macos-12 |head -n1)
           echo "$RELEASE_MACOS12"
           echo "RELEASE_TAG_MACOS12=$RELEASE_MACOS12" >> $GITHUB_OUTPUT
       
@@ -45,7 +45,7 @@ jobs:
         id: get_release_macos13
         run: |
           RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
-          RELEASE_MACOS13=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macos-13$ |head -n1)
+          RELEASE_MACOS13=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macos-13 |head -n1)
           echo "$RELEASE_MACOS13"
           echo "RELEASE_TAG_MACOS13=$RELEASE_MACOS13" >> $GITHUB_OUTPUT
 
@@ -53,7 +53,7 @@ jobs:
         id: get_release_macos14
         run: |
           RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
-          RELEASE_MACOS14=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macos-14$ |head -n1)
+          RELEASE_MACOS14=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macos-14 |head -n1)
           echo "$RELEASE_MACOS14"
           echo "RELEASE_TAG_MACOS14=$RELEASE_MACOS14" >> $GITHUB_OUTPUT
 
