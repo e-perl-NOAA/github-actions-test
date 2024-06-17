@@ -26,4 +26,5 @@ jobs:
           git fetch --prune --unshallow || true
           
       - name: Git more tags
+        run: |
           git checkout $(git describe --tags $(git rev-list --tags --max-count=10))
