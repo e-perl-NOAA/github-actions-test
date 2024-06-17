@@ -21,4 +21,5 @@ jobs:
 
       - name: Git tags
         run: |
-          git log --pretty='%(describe:tags=true,abbrev=0)' | uniq | head -n 10
+          cd runner-images
+          git describe --tags $(git rev-list --tags --max-count=10)
