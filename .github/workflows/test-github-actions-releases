@@ -1,0 +1,22 @@
+name: test-github-actions-releases
+on:
+  workflow_dispatch:
+  push: 
+
+jobs:
+  test-github-actions-releases:
+    runs-on: ubuntu-latest
+    env:
+      R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      R_KEEP_PKG_SOURCE: yes
+
+    steps:
+      - name: Checkout github-actions-repo
+        uses: actions/checkout@v4
+        with:
+          repository: 'actions/runner-images'
+
+      - name: Git tags
+        run: |
+          git --count=10 tag
