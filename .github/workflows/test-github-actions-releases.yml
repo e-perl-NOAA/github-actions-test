@@ -21,4 +21,4 @@ jobs:
 
       - name: Git tags
         run: |
-          git --count=10 tag
+          git tag --sort=-version:refname | head -n 10
