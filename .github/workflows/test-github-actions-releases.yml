@@ -22,4 +22,6 @@ jobs:
       - name: Git tags
         run: |
           cd runner-images
-          git fetch --tags origin
+          git fetch --tags
+          git fetch --prune --unshallow || true
+          git tag
