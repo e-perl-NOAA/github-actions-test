@@ -21,4 +21,4 @@ jobs:
 
       - name: Git tags
         run: |
-          git tag --sort=-version:refname | head -n 10
+          git log --pretty='%(describe:tags=true,abbrev=0)' | uniq | head -n 10
