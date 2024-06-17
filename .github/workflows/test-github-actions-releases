@@ -1,7 +1,8 @@
 name: test-github-actions-releases
+
 on:
+  push:
   workflow_dispatch:
-  push: 
 
 jobs:
   test-github-actions-releases:
@@ -15,7 +16,8 @@ jobs:
       - name: Checkout github-actions-repo
         uses: actions/checkout@v4
         with:
-          repository: 'actions/runner-images'
+          repository: actions/runner-images
+          path: runner-images
 
       - name: Git tags
         run: |
