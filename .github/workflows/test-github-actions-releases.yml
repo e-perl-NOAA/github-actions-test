@@ -26,36 +26,41 @@ jobs:
           git fetch --prune --unshallow || true
           
       - name: Get latest release ubuntu
-        id: get_release
+        id: get_release_ubuntu
         run: |
           RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
           RELEASE=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep ubuntu22 |head -n1)
-          echo "RELEASE_TAG=$RELEASE" >> $GITHUB_OUTPUT
+          echo "RELEASE_TAG_UBUNTU=$RELEASE" >> $GITHUB_OUTPUT
+          echo "$RELEASE_TAG_UBUNTU"
 
-      - name: Get latest release ubuntu
-        id: get_release1
+      - name: Get latest release macOS-12
+        id: get_release_macos12
         run: |
           RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
           RELEASE=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macOS-12 |head -n1)
-          echo "RELEASE_TAG=$RELEASE" >> $GITHUB_OUTPUT
+          echo "RELEASE_TAG_MACOS12=$RELEASE" >> $GITHUB_OUTPUT
+          echo "$RELEASE_TAG_MACOS12"
       
-      - name: Get latest release ubuntu
-        id: get_release2
+      - name: Get latest release macos-13
+        id: get_release_macos13
         run: |
           RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
           RELEASE=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macos-13$ |head -n1)
-          echo "RELEASE_TAG=$RELEASE" >> $GITHUB_OUTPUT
+          echo "RELEASE_TAG_MACOS13=$RELEASE" >> $GITHUB_OUTPUT
+          echo "$RELEASE_TAG_MACOS13"
 
-      - name: Get latest release ubuntu
-        id: get_release3
+      - name: Get latest release macos-14
+        id: get_release_macos14
         run: |
           RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
           RELEASE=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macos-14$ |head -n1)
-          echo "RELEASE_TAG=$RELEASE" >> $GITHUB_OUTPUT
+          echo "RELEASE_TAG_MACOS14=$RELEASE" >> $GITHUB_OUTPUT
+          echo "$RELEASE_TAG_MACOS14"
 
-      - name: Get latest release ubuntu
-        id: get_release4
+      - name: Get latest release windows 2022
+        id: get_release_windows
         run: |
           RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
           RELEASE=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep win22 |head -n1)
-          echo "RELEASE_TAG=$RELEASE" >> $GITHUB_OUTPUT
+          echo "RELEASE_TAG_WINDOWS=$RELEASE" >> $GITHUB_OUTPUT
+          echo "$RELEASE_TAG_WINDOWS"
