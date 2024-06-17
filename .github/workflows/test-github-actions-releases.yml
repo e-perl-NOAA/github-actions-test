@@ -27,4 +27,4 @@ jobs:
           
       - name: Git more tags
         run: |
-          git checkout $(git describe --tags $(git rev-list --tags --max-count=10))
+          git fetch $(git describe --tags $(git rev-list --tags --max-count=10))
