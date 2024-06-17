@@ -1,7 +1,7 @@
 name: 'Sends Email'
 
 on: 
-  push:
+  #push:
   workflow_dispatch:
 
 jobs:
