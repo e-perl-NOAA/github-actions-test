@@ -37,30 +37,30 @@ jobs:
         id: get_release_macos12
         run: |
           RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
-          RELEASE=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macOS-12 |head -n1)
-          echo "$RELEASE"
-          echo "RELEASE_TAG_MACOS12=$RELEASE" >> $GITHUB_OUTPUT
+          RELEASE_MACOS12=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macOS-12 |head -n1)
+          echo "$RELEASE_MACOS12"
+          echo "RELEASE_TAG_MACOS12=$RELEASE_MACOS12" >> $GITHUB_OUTPUT
       
       - name: Get latest release macos-13
         id: get_release_macos13
         run: |
           RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
-          RELEASE=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macos-13$ |head -n1)
-          echo "$RELEASE"
-          echo "RELEASE_TAG_MACOS13=$RELEASE" >> $GITHUB_OUTPUT
+          RELEASE_MACOS13=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macos-13$ |head -n1)
+          echo "$RELEASE_MACOS13"
+          echo "RELEASE_TAG_MACOS13=$RELEASE_MACOS13" >> $GITHUB_OUTPUT
 
       - name: Get latest release macos-14
         id: get_release_macos14
         run: |
           RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
-          RELEASE=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macos-14$ |head -n1)
-          echo "$RELEASE"
-          echo "RELEASE_TAG_MACOS14=$RELEASE" >> $GITHUB_OUTPUT
+          RELEASE_MACOS14=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macos-14$ |head -n1)
+          echo "$RELEASE_MACOS14"
+          echo "RELEASE_TAG_MACOS14=$RELEASE_MACOS14" >> $GITHUB_OUTPUT
 
       - name: Get latest release windows 2022
         id: get_release_windows
         run: |
           RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
-          RELEASE=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep win22 |head -n1)
-          echo "$RELEASE"
-          echo "RELEASE_TAG_WINDOWS=$RELEASE" >> $GITHUB_OUTPUT
+          RELEASE_WINDOWS=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep win22 |head -n1)
+          echo "$RELEASE_WINDOWS"
+          echo "RELEASE_TAG_WINDOWS=$RELEASE_WINDOWS" >> $GITHUB_OUTPUT
