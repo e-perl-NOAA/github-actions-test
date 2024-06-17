@@ -22,4 +22,4 @@ jobs:
       - name: Git tags
         run: |
           cd runner-images
-          git fetc --tags origin
+          git fetch --tags origin
