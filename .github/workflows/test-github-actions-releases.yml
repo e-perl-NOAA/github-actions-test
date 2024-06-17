@@ -22,4 +22,4 @@ jobs:
       - name: Git tags
         run: |
           cd runner-images
-          git fetch --tags origin $(git rev-list --tags --max-count=10)
+          git tag origin
