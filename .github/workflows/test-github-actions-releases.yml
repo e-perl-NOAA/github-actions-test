@@ -31,7 +31,7 @@ jobs:
           RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
           RELEASE=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep ubuntu22 |head -n1)
           echo "$RELEASE"
-          echo "RELEASE_TAG_UBUNTU=$RELEASE" >> $GITHUB_OUTPUT
+          echo "RELEASE_TAG_UBUNTU=$RELEASE" > ubuntu.txt
 
       - name: Get latest release macOS-12
         id: get_release_macos12
@@ -39,7 +39,7 @@ jobs:
           RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
           RELEASE_MACOS12=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macos-12 |head -n1)
           echo "$RELEASE_MACOS12"
-          echo "RELEASE_TAG_MACOS12=$RELEASE_MACOS12" >> $GITHUB_OUTPUT
+          echo "RELEASE_TAG_MACOS12=$RELEASE_MACOS12" > macos-12.txt
       
       - name: Get latest release macos-13
         id: get_release_macos13
@@ -47,7 +47,7 @@ jobs:
           RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
           RELEASE_MACOS13=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macos-13 |head -n1)
           echo "$RELEASE_MACOS13"
-          echo "RELEASE_TAG_MACOS13=$RELEASE_MACOS13" >> $GITHUB_OUTPUT
+          echo "RELEASE_TAG_MACOS13=$RELEASE_MACOS13" > macos-13.txt
 
       - name: Get latest release macos-14
         id: get_release_macos14
@@ -55,7 +55,7 @@ jobs:
           RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
           RELEASE_MACOS14=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macos-14 |head -n1)
           echo "$RELEASE_MACOS14"
-          echo "RELEASE_TAG_MACOS14=$RELEASE_MACOS14" >> $GITHUB_OUTPUT
+          echo "RELEASE_TAG_MACOS14=$RELEASE_MACOS14" > macos-13.txt
 
       - name: Get latest release windows 2022
         id: get_release_windows
@@ -63,4 +63,18 @@ jobs:
           RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
           RELEASE_WINDOWS=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep win22 |head -n1)
           echo "$RELEASE_WINDOWS"
-          echo "RELEASE_TAG_WINDOWS=$RELEASE_WINDOWS" >> $GITHUB_OUTPUT
+          echo "RELEASE_TAG_WINDOWS=$RELEASE_WINDOWS" > windows.txt
+
+      - name: Read in txt files
+        run: |
+          ubuntu <- readLines("ubuntu.txt")
+          macos12 <- readLines("macos-12.txt")
+          macos13 <- readLines("macos-13.txt")
+          macos14 <- readLines("macos-14.txt")
+          windows <- readLines("windows.txt")
+          
+          all_os <- cat(ubuntu, macos12, macos13, macos14, windows, sep = "\n")
+
+          writeLines(all_os, ".github/all_os_versions.txt")
+          
+        shell: Rscript {0}
