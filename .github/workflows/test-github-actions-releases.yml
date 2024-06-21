@@ -74,8 +74,8 @@ jobs:
           windows <- readLines("windows.txt")
 
           all_os <- capture.output(cat(ubuntu, macos12, macos13, macos14, windows, sep = "\n"))
-          file.create(".github/all_os_versions.txt")
-          writeLines(all_os, ".github/all_os_versions.txt")
+          file.create("all_os_versions.txt")
+          writeLines(all_os, "all_os_versions.txt")
         shell: Rscript {0}
 
       - name: Artifact
