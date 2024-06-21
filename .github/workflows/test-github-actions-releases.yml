@@ -73,12 +73,11 @@ jobs:
           macos14 <- readLines("macos-14.txt")
           windows <- readLines("windows.txt")
 
-          all_os <- cat(ubuntu, macos12, macos13, macos14, windows, sep = "\n")
-          all_os
+          cat(ubuntu, macos12, macos13, macos14, windows, sep = "\n", file = "github/all_os.txt")
         shell: Rscript {0}
 
-#      - name: Artifact
-#        uses: actions/upload-artifact@main
-#        with:
-#          name: 'all_os_versions.txt'
-#          path: .github/
+      - name: Artifact
+        uses: actions/upload-artifact@main
+        with:
+          name: 'all_os_versions.txt'
+          path: .github/
