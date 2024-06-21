@@ -77,7 +77,7 @@ jobs:
           file.create("all_os_versions_new.txt")
           writeLines(all_os, "all_os_versions_new.txt")
 
-          all_os_previous <- readLines(".github/workflows/ref_file/all_os_versions.txt")
+          all_os_previous <- readLines(".github/ref_file/all_os_versions.txt")
           all_os_new <- readLines("all_os_versions_new.txt")
           all_os_new == all_os_previous
           
