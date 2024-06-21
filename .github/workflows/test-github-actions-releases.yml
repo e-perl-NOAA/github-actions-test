@@ -29,9 +29,9 @@ jobs:
         id: get_release_ubuntu
         run: |
           RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
-          RELEASE=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep ubuntu22 |head -n1)
-          echo "$RELEASE"
-          echo "$RELEASE" > ubuntu.txt
+          RELEASE_UBUNTU=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep ubuntu22 |head -n1)
+          echo "$RELEASE_UBUNTU"
+          echo "$RELEASE_UBUNTU" > ubuntu.txt
 
       - name: Get latest release macOS-12
         id: get_release_macos12
@@ -73,11 +73,15 @@ jobs:
           macos14 <- readLines("macos-14.txt")
           windows <- readLines("windows.txt")
 
-          writeLines(c(ubuntu, macos12, macos13, macos14, windows), ".github/all_os_versions.txt")
+          ubuntu
+          macos12
+          macos13
+          macos14
+          windows
         shell: Rscript {0}
 
-      - name: Artifact
-        uses: actions/upload-artifact@main
-        with:
-          name: 'all_os_versions.txt'
-          path: .github/
+#      - name: Artifact
+#        uses: actions/upload-artifact@main
+#        with:
+#          name: 'all_os_versions.txt'
+#          path: .github/
