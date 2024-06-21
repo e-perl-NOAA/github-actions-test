@@ -65,6 +65,9 @@ jobs:
           echo "$RELEASE_WINDOWS"
           echo "$RELEASE_WINDOWS" > windows.txt
 
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
       - name: Read in txt files
         run: |
           ubuntu <- readLines("ubuntu.txt")
