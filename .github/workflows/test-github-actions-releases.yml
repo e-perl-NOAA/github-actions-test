@@ -73,7 +73,7 @@ jobs:
           macos14 <- readLines("macos-14.txt")
           windows <- readLines("windows.txt")
 
-          cat(ubuntu, macos12, macos13, macos14, windows, sep = "\n", file = "github/all_os.txt")
+          cat(ubuntu, macos12, macos13, macos14, windows, sep = "\n", file = ".github/all_os.txt")
         shell: Rscript {0}
 
       - name: Artifact
