@@ -76,5 +76,10 @@ jobs:
           all_os <- cat(ubuntu, macos12, macos13, macos14, windows, sep = "\n")
 
           writeLines(all_os, ".github/all_os_versions.txt")
-          
         shell: Rscript {0}
+
+      - name: Artifact
+        uses: actions/upload-artifact@main
+        with:
+          name: 'all_os_versions.txt'
+          path: .github/
