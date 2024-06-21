@@ -31,7 +31,7 @@ jobs:
           RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
           RELEASE_UBUNTU=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep ubuntu22 |head -n1)
           echo "$RELEASE_UBUNTU"
-          echo "$RELEASE_UBUNTU" > ubuntu.txt
+          echo "$RELEASE_UBUNTU" > runner-images/ubuntu.txt
 
       - name: Get latest release macOS-12
         id: get_release_macos12
@@ -39,7 +39,7 @@ jobs:
           RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
           RELEASE_MACOS12=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macos-12 |head -n1)
           echo "$RELEASE_MACOS12"
-          echo "$RELEASE_MACOS12" > macos-12.txt
+          echo "$RELEASE_MACOS12" > runner-images/macos-12.txt
       
       - name: Get latest release macos-13
         id: get_release_macos13
@@ -47,7 +47,7 @@ jobs:
           RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
           RELEASE_MACOS13=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macos-13 |head -n1)
           echo "$RELEASE_MACOS13"
-          echo "$RELEASE_MACOS13" > macos-13.txt
+          echo "$RELEASE_MACOS13" > runner-images/macos-13.txt
 
       - name: Get latest release macos-14
         id: get_release_macos14
@@ -55,7 +55,7 @@ jobs:
           RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
           RELEASE_MACOS14=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macos-14 |head -n1)
           echo "$RELEASE_MACOS14"
-          echo "$RELEASE_MACOS14" > macos-14.txt
+          echo "$RELEASE_MACOS14" > runner-images/macos-14.txt
 
       - name: Get latest release windows 2022
         id: get_release_windows
@@ -63,7 +63,7 @@ jobs:
           RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
           RELEASE_WINDOWS=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep win22 |head -n1)
           echo "$RELEASE_WINDOWS"
-          echo "$RELEASE_WINDOWS" > windows.txt
+          echo "$RELEASE_WINDOWS" > runner-images/windows.txt
 
       - name: Checkout repo
         uses: actions/checkout@v4
