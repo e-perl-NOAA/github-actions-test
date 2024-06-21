@@ -44,7 +44,7 @@ jobs:
         id: get_release_macos14
         run: |
           RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
-          RELEASE_MACOS14=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macos-14 |head -n1)
+          RELEASE_MACOS14=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macos-14-arm64 |head -n1)
           echo "$RELEASE_MACOS14"
           echo "$RELEASE_MACOS14" > macos-14.txt
 
@@ -71,11 +71,10 @@ jobs:
           all_os_previous <- readLines(".github/ref_file/all_os_versions.txt")
           all_os_new <- readLines("all_os_versions_new.txt")
           all_os_new == all_os_previous
-          
         shell: Rscript {0}
 
       - name: Artifact
         uses: actions/upload-artifact@main
         with:
           name: 'all_os_versions.txt'
-          path: 'all_os_versions.txt'
+          path: all_os_versions.txt
