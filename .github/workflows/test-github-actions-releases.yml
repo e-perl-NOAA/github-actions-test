@@ -80,7 +80,7 @@ jobs:
       - name: Notify pkgdown deployment
         if: steps.runner_diff.outputs.diff_output == 'differences in runners'
         run: |
-          rm ubuntu.txt macos-12.txt macos-13.txt macos-14.txt windows.txt */all_os_versions.txt
+          rm ubuntu.txt macos-12.txt macos-13.txt macos-14.txt windows.txt
           mv all_os_versions_new.txt .github/ref_file/all_os_versions.txt
 
       - uses: EndBug/add-and-commit@v9
