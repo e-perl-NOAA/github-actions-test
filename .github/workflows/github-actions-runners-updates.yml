@@ -25,7 +25,14 @@ jobs:
           RELEASES_LIST=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r)
           echo "$RELEASES_LIST" |awk -F'/' '{print $1}'| sort -u  > releases_names_unique.txt
           mv releases_names_unique.txt .github/ref_file/releases_names_unique.txt
-        
+          
+      - uses: EndBug/add-and-commit@v9
+        with:
+          message: 'update GitHub actions runner versions'
+          add: .github/ref_file/releases_names_unique.txt
+          default_author: github_actions
+          push: true
+          
       - name: Get latest release ubuntu
         id: get_release_ubuntu
         run: |
