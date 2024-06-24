@@ -71,7 +71,7 @@ jobs:
 
           all_os_previous <- readLines(".github/ref_file/all_os_versions.txt")
           all_os_new <- readLines("all_os_versions_new.txt")
-          if(all_os_new != all_os_previous){
+          if(any(all_os_new != all_os_previous)){
             cat(sprintf('diff_output=%s', 'differences in runners'), file = Sys.getenv("GITHUB_OUTPUT"), append = TRUE)
             }
           print(all_os_new[all_os_new != all_os_previous])
