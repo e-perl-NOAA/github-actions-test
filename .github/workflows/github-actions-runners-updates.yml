@@ -1,4 +1,4 @@
-name: test-github-actions-releases
+name: github-actions-runners-updates
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     - cron: '0 15 * * 2' #min, hour, day of the month, month, day of the week
 
 jobs:
-  test-github-actions-releases:
+  github-actions-runners-updates:
     runs-on: ubuntu-latest
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
@@ -100,9 +100,11 @@ jobs:
           echo 'GitHub actions runners have changed ${{ steps.runner_diff.outputs.differences }}'
           echo 'Run build-ss3.yml and build-admb-and-ss3.yml to make sure they still work with updated runners'
           exit 1
-      
-      # - name: Artifact
-      #   uses: actions/upload-artifact@main
-      #   with:
-      #     name: 'all_os_versions.txt'
-      #     path: all_os_versions.txt
+
+# add the following to build-ss3.yml and build-admb-and-ss3-from-source.yml
+# on:
+#  workflow_run:
+#    workflows: [github-actions-runners-updates]
+#    types: [completed]
+# name-of-job:
+#    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
