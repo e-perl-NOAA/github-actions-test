@@ -17,7 +17,15 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-          
+
+      - name: Get all releases
+        id: get_all_releases
+        run: |
+          RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
+          RELEASES_LIST=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r)
+          echo "$RELEASES_LIST" |awk -F'/' '{print $1}'| sort -u  > releases_names_unique.txt
+          mv releases_names_unique.txt .github/ref_file/releases_names_unique.txt
+        
       - name: Get latest release ubuntu
         id: get_release_ubuntu
         run: |
@@ -90,7 +98,7 @@ jobs:
         if: steps.runner_diff.outputs.output == 'differences in runners'
         with:
           message: 'update GitHub actions runner versions'
-          add: .github/ref_file/all_os_versions.txt
+          add: .github/ref_file/all_os_versions.txt .github/ref_file/releases_names_unique.txt
           default_author: github_actions
           push: true
           
