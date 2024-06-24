@@ -57,6 +57,7 @@ jobs:
           echo "$RELEASE_WINDOWS" > windows.txt
 
       - name: Read in txt files
+        id: runner_diff
         run: |
           ubuntu <- readLines("ubuntu.txt")
           macos12 <- readLines("macos-12.txt")
@@ -70,11 +71,34 @@ jobs:
 
           all_os_previous <- readLines(".github/ref_file/all_os_versions.txt")
           all_os_new <- readLines("all_os_versions_new.txt")
-          all_os_new == all_os_previous
+          if(all_os_new != all_os_previous){
+            cat(sprintf('diff_output=%s', 'differences in runners'), file = Sys.getenv("GITHUB_OUTPUT"), append = TRUE)
+            }
+          print(all_os_new[all_os_new != all_os_previous])
         shell: Rscript {0}
 
-      - name: Artifact
-        uses: actions/upload-artifact@main
+      - name: Notify pkgdown deployment
+        if: steps.runner_diff.outputs.diff_output == 'differences in runners'
+        run: |
+          rm ubuntu.txt macos-12.txt macos-13.txt macos-14.txt windows.txt */all_os_versions.txt
+          mv all_os_versions_new.txt .github/ref_file/all_os_versions.txt
+
+      - uses: EndBug/add-and-commit@v9
+        if: steps.runner_diff.outputs.diff_output == 'differences in runners'
         with:
-          name: 'all_os_versions.txt'
-          path: all_os_versions.txt
+          message: 'update GitHub actions runner versions'
+          add: .github/ref_file/all_os_versions.txt
+          default_author: github_actions
+          push: true
+          
+      - name: Fail action if differences in runners
+        if: steps.runner_diff.outputs.diff_output == 'differences in runners'
+        run: |
+          echo 'Run build-ss3.yml and build-admb-and-ss3.yml to make sure they still work with updated runners'
+          exit 1
+      
+      # - name: Artifact
+      #   uses: actions/upload-artifact@main
+      #   with:
+      #     name: 'all_os_versions.txt'
+      #     path: all_os_versions.txt
