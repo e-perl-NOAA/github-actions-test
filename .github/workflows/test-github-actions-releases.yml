@@ -72,7 +72,8 @@ jobs:
           all_os_previous <- readLines(".github/ref_file/all_os_versions.txt")
           all_os_new <- readLines("all_os_versions_new.txt")
           if(any(all_os_new != all_os_previous)){
-            cat(sprintf('diff_output=%s', 'differences in runners'), file = Sys.getenv("GITHUB_OUTPUT"), append = TRUE)
+            cat(sprintf('output=%s', 'differences in runners'), file = Sys.getenv("GITHUB_OUTPUT"), append = TRUE)
+            cat(sprintf('differences=%s', all_os_new[all_os_new != all_os_previous]), file = Sys.getenv("GITHUB_OUTPUT"), append = TRUE)
             }
           print(all_os_new[all_os_new != all_os_previous])
         shell: Rscript {0}
@@ -84,7 +85,7 @@ jobs:
           mv all_os_versions_new.txt .github/ref_file/all_os_versions.txt
 
       - uses: EndBug/add-and-commit@v9
-        if: steps.runner_diff.outputs.diff_output == 'differences in runners'
+        if: steps.runner_diff.outputs.output == 'differences in runners'
         with:
           message: 'update GitHub actions runner versions'
           add: .github/ref_file/all_os_versions.txt
@@ -92,8 +93,9 @@ jobs:
           push: true
           
       - name: Fail action if differences in runners
-        if: steps.runner_diff.outputs.diff_output == 'differences in runners'
+        if: steps.runner_diff.outputs.output == 'differences in runners'
         run: |
+          echo 'GitHub actions runners have changed ${{ steps.runner_diff.outputs.differences }}'
           echo 'Run build-ss3.yml and build-admb-and-ss3.yml to make sure they still work with updated runners'
           exit 1
       
