@@ -1,3 +1,8 @@
+# Look for differences in GitHub Actions runner versions and the unique runner names
+# The action fails if there are differences and the failure will be used to trigger the ss3-build.yml
+# and the build-admb-and-ss3.yml to make sure that the actions still run with the updated runner versions
+# If the unique runner names are different then you should add or take away runners accordingly and test
+# ss3-build.yml and build-admb-and-ss3.yml with those.
 name: github-actions-runners-updates
 
 on:
@@ -18,13 +23,13 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Get all releases
+      - name: Get all github actions runner releases and list the unique runner names
         run: |
           RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
           RELEASES_LIST=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r)
           echo "$RELEASES_LIST" |awk -F'/' '{print $1}'| sort -u  > releases_names_unique_new.txt
       
-      - name: See if any there are any new runners
+      - name: See if any there are any new runners based on the reference file
         id: runner_diff
         run: |
           all_runners_previous <- readLines(".github/ref_file/releases_names_unique.txt")
@@ -37,41 +42,36 @@ jobs:
         shell: Rscript {0}
 
       - name: Get latest release ubuntu
-        id: get_release_ubuntu
         run: |
           RELEASE_UBUNTU=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep ubuntu22 |head -n1)
           echo "$RELEASE_UBUNTU"
           echo "$RELEASE_UBUNTU" > ubuntu.txt
 
-      - name: Get latest release macOS-12
-        id: get_release_macos12
+      - name: Get latest release macos-12
         run: |
           RELEASE_MACOS12=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macos-12 |head -n1)
           echo "$RELEASE_MACOS12"
           echo "$RELEASE_MACOS12" > macos-12.txt
       
       - name: Get latest release macos-13
-        id: get_release_macos13
         run: |
           RELEASE_MACOS13=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macos-13 |head -n1)
           echo "$RELEASE_MACOS13"
           echo "$RELEASE_MACOS13" > macos-13.txt
 
       - name: Get latest release macos-14
-        id: get_release_macos14
         run: |
           RELEASE_MACOS14=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macos-14-arm64 |head -n1)
           echo "$RELEASE_MACOS14"
           echo "$RELEASE_MACOS14" > macos-14.txt
 
       - name: Get latest release windows 2022
-        id: get_release_windows
         run: |
           RELEASE_WINDOWS=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep win22 |head -n1)
           echo "$RELEASE_WINDOWS"
           echo "$RELEASE_WINDOWS" > windows.txt
 
-      - name: Read in txt files
+      - name: Read in txt files of releases and see if there are any differences in release versions from the reference file
         id: version_diff
         run: |
           ubuntu <- readLines("ubuntu.txt")
@@ -93,7 +93,7 @@ jobs:
           print(all_os_new[all_os_new != all_os_previous])
         shell: Rscript {0}
 
-      - name: Move new version
+      - name: Move new version of runner versions and unique runner names
         if: steps.version_diff.outputs.output_ver == 'differences in runner versions' || steps.runner_diff.outputs.output_runners == 'differences in runners'
         run: |
           rm ubuntu.txt macos-12.txt macos-13.txt macos-14.txt windows.txt
@@ -108,7 +108,7 @@ jobs:
           default_author: github_actions
           push: true
           
-      - name: Fail action if differences in runners
+      - name: Fail action if differences in runner versions or unique runner names
         if: steps.version_diff.outputs.output_ver == 'differences in runner versions' || steps.runner_diff.outputs.output_runners == 'differences in runners'
         run: |
           echo 'GitHub actions runner versions have changed ${{ steps.version_diff.outputs.diff_ver }} or the runners have changed ${{ steps.runner_diff.outputs.diff_runners }}'
