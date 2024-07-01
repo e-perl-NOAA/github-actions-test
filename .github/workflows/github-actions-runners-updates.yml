@@ -1,4 +1,4 @@
-# Look for differences in GitHub Actions runner versions and the unique runner names
+# Look for differences in GitHub Actions runner versions and the unique runner names (NOT THE PRE-RELEASES)
 # The action fails if there are differences and the failure will be used to trigger the ss3-build.yml
 # and the build-admb-and-ss3.yml to make sure that the actions still run with the updated runner versions
 # If the unique runner names are different then you should add or take away runners accordingly and test
@@ -23,7 +23,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Get all github actions runner releases and list the unique runner names
+      - name: Get all github actions runner releases and list the unique runner names (not including pre-releases)
         run: |
           RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
           RELEASES_LIST=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r)
