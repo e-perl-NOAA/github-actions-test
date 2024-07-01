@@ -39,6 +39,9 @@ jobs:
             cat(sprintf('diff_runners=%s', all_runners_new[all_runners_new != all_runners_previous]), file = Sys.getenv("GITHUB_OUTPUT"), append = TRUE)
             }
           print(all_runners_new[all_runners_new != all_runners_previous])
+          runner_names_compare <- all_runners_new[all_runners_new != all_runners_previous]
+          file.create("runner_names_compare.txt")
+          writeLines(runner_names_compare, "runner_names_compare.txt")
         shell: Rscript {0}
 
       - name: Get latest release ubuntu
@@ -91,6 +94,10 @@ jobs:
             cat(sprintf('diff_ver=%s', all_os_new[all_os_new != all_os_previous]), file = Sys.getenv("GITHUB_OUTPUT"), append = TRUE)
             }
           print(all_os_new[all_os_new != all_os_previous])
+
+          runner_versions_compare <- all_os_new[all_os_new != all_os_previous]
+          file.create("runner_versions_compare.txt")
+          writeLines(runner_versions_compare, "runner_versions_compare.txt")
         shell: Rscript {0}
 
       - name: Move new version of runner versions and unique runner names
@@ -127,6 +134,20 @@ jobs:
           reviewers: e-perl-NOAA
           draft: false
           
+      - name: Create artifact of runner name differences
+        if: always()
+        uses: actions/upload-artifact@main
+        with:
+          name: 'runner_names_compare.txt'
+          path: runner_names_compare.txt
+          
+      - name: Create artifact of version differences
+        if: always()
+        uses: actions/upload-artifact@main
+        with:
+          name: 'runner_versions_compare.txt'
+          path: runner_versions_compare.txt
+
       - name: Fail action if differences in runner versions or unique runner names
         if: steps.version_diff.outputs.output_ver == 'differences in runner versions' || steps.runner_diff.outputs.output_runners == 'differences in runners'
         run: |
@@ -134,7 +155,6 @@ jobs:
           echo 'Running build-ss3.yml and build-admb-and-ss3.yml to make sure they still work with updated runner versions' 
           echo 'If runners have been changed you will need to add or takeaway the runners that have been changed to make sure the workflows still run'
           exit 1
-
 # add the following to build-ss3.yml and build-admb-and-ss3-from-source.yml
 # on:
 #  workflow_run:
