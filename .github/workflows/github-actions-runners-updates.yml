@@ -135,14 +135,14 @@ jobs:
           draft: false
           
       - name: Create artifact of runner name differences
-        if: always()
+        if: steps.runner_diff.outputs.output_runners == 'differences in runners'
         uses: actions/upload-artifact@main
         with:
           name: 'runner_names_compare.txt'
           path: runner_names_compare.txt
           
       - name: Create artifact of version differences
-        if: always()
+        if: steps.version_diff.outputs.output_ver == 'differences in runner versions'
         uses: actions/upload-artifact@main
         with:
           name: 'runner_versions_compare.txt'
