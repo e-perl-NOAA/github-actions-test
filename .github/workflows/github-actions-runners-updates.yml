@@ -28,7 +28,6 @@ jobs:
           RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
           RELEASES_ALL=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r) 
           echo "$RELEASES_ALL" |awk -F'/' '{print $1}'| sort -u  > releases_names_unique_new.txt
-          echo "RELEASES_LIST=$RELEASES_ALL" >> $GITHUB_OUTPUT
       
       # - name: See if any there are any new runners based on the reference file
       #   id: runner_diff
