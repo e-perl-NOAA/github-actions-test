@@ -30,20 +30,20 @@ jobs:
           echo "$RELEASES_ALL" |awk -F'/' '{print $1}'| sort -u  > releases_names_unique_new.txt
           echo "$RELEASES_ALL"
       
-      # - name: See if any there are any new runners based on the reference file
-      #   id: runner_diff
-      #   run: |
-      #     all_runners_previous <- readLines(".github/ref_file/releases_names_unique.txt")
-      #     all_runners_new <- readLines("releases_names_unique_new.txt")
-      #     if(any(all_runners_new != all_runners_previous)){
-      #       cat(sprintf('output_runners=%s', 'differences in runners'), file = Sys.getenv("GITHUB_OUTPUT"), append = TRUE)
-      #       cat(sprintf('diff_runners=%s', all_runners_new[all_runners_new != all_runners_previous]), file = Sys.getenv("GITHUB_OUTPUT"), append = TRUE)
-      #       }
-      #     print(all_runners_new[all_runners_new != all_runners_previous])
-      #     runner_names_compare <- all_runners_new[all_runners_new != all_runners_previous]
-      #     file.create("runner_names_compare.txt")
-      #     writeLines(runner_names_compare, "runner_names_compare.txt")
-      #   shell: Rscript {0}
+      - name: See if any there are any new runners based on the reference file
+        id: runner_diff
+        run: |
+          all_runners_previous <- readLines(".github/ref_file/releases_names_unique.txt")
+          all_runners_new <- readLines("releases_names_unique_new.txt")
+          if(any(all_runners_new != all_runners_previous)){
+            cat(sprintf('output_runners=%s', 'differences in runners'), file = Sys.getenv("GITHUB_OUTPUT"), append = TRUE)
+            cat(sprintf('diff_runners=%s', all_runners_new[all_runners_new != all_runners_previous]), file = Sys.getenv("GITHUB_OUTPUT"), append = TRUE)
+            }
+          print(all_runners_new[all_runners_new != all_runners_previous])
+          runner_names_compare <- all_runners_new[all_runners_new != all_runners_previous]
+          file.create("runner_names_compare.txt")
+          writeLines(runner_names_compare, "runner_names_compare.txt")
+        shell: Rscript {0}
 
       - name: Get latest release ubuntu
         run: |
@@ -52,62 +52,66 @@ jobs:
           echo "$RELEASE_UBUNTU" > ubuntu.txt
           echo "$RELEASE_UBUNTU"
 
-      # - name: Get latest release macos-12
-      #   run: |
-      #     RELEASE_MACOS12=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macos-12 | head -n1)
-      #     echo "$RELEASE_MACOS12" > macos-12.txt
-      #     echo "$RELEASE_MACOS12"
+      - name: Get latest release macos-12
+        run: |
+          RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
+          RELEASE_MACOS12=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macos-12 | head -n1)
+          echo "$RELEASE_MACOS12" > macos-12.txt
+          echo "$RELEASE_MACOS12"
       
-      # - name: Get latest release macos-13
-      #   run: |
-      #     RELEASE_MACOS13=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macos-13 | head -n1)
-      #     echo "$RELEASE_MACOS13" > macos-13.txt
-      #     echo "$RELEASE_MACOS13"
+      - name: Get latest release macos-13
+        run: |
+          RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
+          RELEASE_MACOS13=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macos-13 | head -n1)
+          echo "$RELEASE_MACOS13" > macos-13.txt
+          echo "$RELEASE_MACOS13"
 
-      # - name: Get latest release macos-14
-      #   run: |
-      #     RELEASE_MACOS14=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macos-14-arm64 | head -n1)
-      #     echo "$RELEASE_MACOS14" > macos-14.txt
-      #     echo "$RELEASE_MACOS14"
+      - name: Get latest release macos-14
+        run: |
+          RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
+          RELEASE_MACOS14=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macos-14-arm64 | head -n1)
+          echo "$RELEASE_MACOS14" > macos-14.txt
+          echo "$RELEASE_MACOS14"
 
-      # - name: Get latest release windows 2022
-      #   run: |
-      #     RELEASE_WINDOWS=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep win22 | head -n1)
-      #     echo "$RELEASE_WINDOWS" > windows.txt
-      #     echo "$RELEASE_WINDOWS"
+      - name: Get latest release windows 2022
+        run: |
+          RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
+          RELEASE_WINDOWS=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep win22 | head -n1)
+          echo "$RELEASE_WINDOWS" > windows.txt
+          echo "$RELEASE_WINDOWS"
 
-      # - name: Read in txt files of releases and see if there are any differences in release versions from the reference file
-      #   id: version_diff
-      #   run: |
-      #     ubuntu <- readLines("ubuntu.txt")
-      #     macos12 <- readLines("macos-12.txt")
-      #     macos13 <- readLines("macos-13.txt")
-      #     macos14 <- readLines("macos-14.txt")
-      #     windows <- readLines("windows.txt")
+      - name: Read in txt files of releases and see if there are any differences in release versions from the reference file
+        id: version_diff
+        run: |
+          ubuntu <- readLines("ubuntu.txt")
+          macos12 <- readLines("macos-12.txt")
+          macos13 <- readLines("macos-13.txt")
+          macos14 <- readLines("macos-14.txt")
+          windows <- readLines("windows.txt")
 
-      #     all_os <- capture.output(cat(ubuntu, macos12, macos13, macos14, windows, sep = "\n"))
-      #     file.create("all_os_versions_new.txt")
-      #     writeLines(all_os, "all_os_versions_new.txt")
+          all_os <- capture.output(cat(ubuntu, macos12, macos13, macos14, windows, sep = "\n"))
+          file.create("all_os_versions_new.txt")
+          writeLines(all_os, "all_os_versions_new.txt")
 
-      #     all_os_previous <- readLines(".github/ref_file/all_os_versions.txt")
-      #     all_os_new <- readLines("all_os_versions_new.txt")
-      #     if(any(all_os_new != all_os_previous)){
-      #       cat(sprintf('output_ver=%s', 'differences in runner versions'), file = Sys.getenv("GITHUB_OUTPUT"), append = TRUE)
-      #       cat(sprintf('diff_ver=%s', all_os_new[all_os_new != all_os_previous]), file = Sys.getenv("GITHUB_OUTPUT"), append = TRUE)
-      #       }
-      #     print(all_os_new[all_os_new != all_os_previous])
+          all_os_previous <- readLines(".github/ref_file/all_os_versions.txt")
+          all_os_new <- readLines("all_os_versions_new.txt")
+          if(any(all_os_new != all_os_previous)){
+            cat(sprintf('output_ver=%s', 'differences in runner versions'), file = Sys.getenv("GITHUB_OUTPUT"), append = TRUE)
+            cat(sprintf('diff_ver=%s', all_os_new[all_os_new != all_os_previous]), file = Sys.getenv("GITHUB_OUTPUT"), append = TRUE)
+            }
+          print(all_os_new[all_os_new != all_os_previous])
 
-      #     runner_versions_compare <- all_os_new[all_os_new != all_os_previous]
-      #     file.create("runner_versions_compare.txt")
-      #     writeLines(runner_versions_compare, "runner_versions_compare.txt")
-      #   shell: Rscript {0}
+          runner_versions_compare <- all_os_new[all_os_new != all_os_previous]
+          file.create("runner_versions_compare.txt")
+          writeLines(runner_versions_compare, "runner_versions_compare.txt")
+        shell: Rscript {0}
 
-      # - name: Move new version of runner versions and unique runner names
-      #   if: steps.version_diff.outputs.output_ver == 'differences in runner versions' || steps.runner_diff.outputs.output_runners == 'differences in runners'
-      #   run: |
-      #     rm ubuntu.txt macos-12.txt macos-13.txt macos-14.txt windows.txt
-      #     mv all_os_versions_new.txt .github/ref_file/all_os_versions.txt
-      #     mv releases_names_unique_new.txt github/ref_file/releases_names_unique.txt
+      - name: Move new version of runner versions and unique runner names
+        if: steps.version_diff.outputs.output_ver == 'differences in runner versions' || steps.runner_diff.outputs.output_runners == 'differences in runners'
+        run: |
+          rm ubuntu.txt macos-12.txt macos-13.txt macos-14.txt windows.txt
+          mv all_os_versions_new.txt .github/ref_file/all_os_versions.txt
+          mv releases_names_unique_new.txt github/ref_file/releases_names_unique.txt
 
       # - name: add new ref files and commit
       #   uses: EndBug/add-and-commit@v9
@@ -117,24 +121,27 @@ jobs:
       #     add: .github/ref_file/all_os_versions.txt .github/ref_file/releases_names_unique.txt
       #     default_author: github_actions
           
-      # - name: Create Pull Request for new github action runner ref files
-      #   if: steps.version_diff.outputs.output_ver == 'differences in runner versions' || steps.runner_diff.outputs.output_runners == 'differences in runners'
-      #   uses: peter-evans/create-pull-request@v6
-      #   with:
-      #     commit-message: Update GitHub action runner ref files
-      #     committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
-      #     author: ${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>
-      #     branch: update-gha-runner-ref-files
-      #     delete-branch: true
-      #     title: 'Update GitHub action runner ref files'
-      #     body: |
-      #        - Updated GitHub action runner version ref file with new runner versions and/or changed runners
-      #        - Version changes (if any): ${{ steps.version_diff.outputs.diff_ver }} 
-      #        - Runner changes (if any): ${{ steps.runner_diff.outputs.diff_runners }}
-      #        - Auto-generated by [create-pull-request][1]
-      #        [1]: https://github.com/peter-evans/create-pull-request
-      #     reviewers: e-perl-NOAA
-      #     draft: false
+      - name: Create Pull Request for new github action runner ref files
+        if: steps.version_diff.outputs.output_ver == 'differences in runner versions' || steps.runner_diff.outputs.output_runners == 'differences in runners'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          add-paths: |
+            .github/ref_file/all_os_versions.txt
+            .github/ref_file/releases_names_unique.txt
+          commit-message: Update GitHub action runner ref files
+          committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          author: ${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>
+          branch: update-gha-runner-ref-files
+          delete-branch: true
+          title: 'Update GitHub action runner ref files'
+          body: |
+             - Updated GitHub action runner version ref file with new runner versions and/or changed runners
+             - Version changes (if any): ${{ steps.version_diff.outputs.diff_ver }} 
+             - Runner changes (if any): ${{ steps.runner_diff.outputs.diff_runners }}
+             - Auto-generated by [create-pull-request][1]
+             [1]: https://github.com/peter-evans/create-pull-request
+          reviewers: e-perl-NOAA
+          draft: false
           
       # - name: Create artifact of runner name differences
       #   if: steps.runner_diff.outputs.output_runners == 'differences in runners'
