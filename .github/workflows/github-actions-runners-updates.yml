@@ -112,7 +112,7 @@ jobs:
         run: |
           rm ubuntu.txt macos-12.txt macos-13.txt macos-14.txt windows.txt
           mv all_os_versions_new.txt .github/ref_file/all_os_versions.txt
-          mv releases_names_unique_new.txt github/ref_file/releases_names_unique.txt
+          mv releases_names_unique_new.txt .github/ref_file/releases_names_unique.txt
 
       # - name: add new ref files and commit
       #   uses: EndBug/add-and-commit@v9
