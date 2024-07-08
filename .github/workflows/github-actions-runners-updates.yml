@@ -109,7 +109,6 @@ jobs:
         # if: steps.version_diff.outputs.output_ver == 'differences in runner versions' || steps.runner_diff.outputs.output_runners == 'differences in runners'
         run: |
           OUTPUT_VER=${{steps.version_diff.outputs.output_ver}}
-          echo "$OUTPUT_VER"
           # rm ubuntu.txt macos-12.txt macos-13.txt macos-14.txt windows.txt
           # mv all_os_versions_new.txt .github/ref_file/all_os_versions.txt
           # mv releases_names_unique_new.txt github/ref_file/releases_names_unique.txt
