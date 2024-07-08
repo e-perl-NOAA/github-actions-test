@@ -97,8 +97,6 @@ jobs:
           all_os_new <- readLines("all_os_versions_new.txt")
           if(any(all_os_new != all_os_previous)){
             cat(sprintf('output_ver=%s', 'differences in runner versions'), file = Sys.getenv("GITHUB_OUTPUT"), append = TRUE)
-            dv <- paste0("diff_ver=", all_os_new[all_os_new != all_os_previous], "\n")
-            cat(dv, file = Sys.getenv("GITHUB_OUTPUT"), append = TRUE)
             }
           print(all_os_new[all_os_new != all_os_previous])
 
