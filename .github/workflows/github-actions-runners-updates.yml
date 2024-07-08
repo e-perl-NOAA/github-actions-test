@@ -26,9 +26,10 @@ jobs:
       - name: Get all github actions runner releases and list the unique runner names (not including pre-releases)
         run: |
           RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
-          RELEASES_ALL=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r) 
-          echo "$RELEASES_ALL" |awk -F'/' '{print $1}'| sort -u  > releases_names_unique_new.txt
-          echo "$RELEASES_ALL"
+          RELEASES_ALL=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r)
+          RELEASES_UNIQUE=$(echo "$RELEASES_ALL" |awk -F'/' '{print $1}'| sort -u)
+          echo "$RELEASES_UNIQUE"  > releases_names_unique_new.txt
+          echo "$RELEASES_UNIQUE"
       
       - name: See if any there are any new runners based on the reference file
         id: runner_diff
