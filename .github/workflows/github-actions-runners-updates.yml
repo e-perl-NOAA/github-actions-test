@@ -30,7 +30,7 @@ jobs:
           RELEASES_UNIQUE=$(echo "$RELEASES_ALL" |awk -F'/' '{print $1}'| sort -u)
           echo "$RELEASES_UNIQUE"  > releases_names_unique_new.txt
           echo "$RELEASES_UNIQUE"
-          test [-f releases_names_unique_new.txt]
+          test -f releases_names_unique_new.txt
       
       - name: See if any there are any new runners based on the reference file
         id: runner_diff
