@@ -47,8 +47,8 @@ jobs:
 
       - name: Get latest release ubuntu
         run: |
-          RELEASES_LIST=${{ steps.get_release.outputs.RELEASES_LIST }}
-          RELEASE_UBUNTU=$(echo "$RELEASES_LIST" | grep ubuntu22 | head -n1)
+          RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
+          RELEASES_UBUNTU=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r| grep ubuntu22 | head -n1)
           echo "$RELEASE_UBUNTU" > ubuntu.txt
           echo "$RELEASE_UBUNTU"
 
