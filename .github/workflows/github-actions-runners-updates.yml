@@ -47,31 +47,31 @@ jobs:
 
       - name: Get latest release ubuntu
         run: |
-          RELEASE_UBUNTU=$(echo "$RELEASES_LIST" | sort -r | grep ubuntu22 |head -n1)
+          RELEASE_UBUNTU=$(echo "$RELEASES_LIST" | grep ubuntu22 | head -n1)
           echo "$RELEASE_UBUNTU" > ubuntu.txt
           echo "$RELEASE_UBUNTU"
 
       - name: Get latest release macos-12
         run: |
-          RELEASE_MACOS12=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macos-12 |head -n1)
+          RELEASE_MACOS12=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macos-12 | head -n1)
           echo "$RELEASE_MACOS12" > macos-12.txt
           echo "$RELEASE_MACOS12"
       
       - name: Get latest release macos-13
         run: |
-          RELEASE_MACOS13=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macos-13 |head -n1)
+          RELEASE_MACOS13=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macos-13 | head -n1)
           echo "$RELEASE_MACOS13" > macos-13.txt
           echo "$RELEASE_MACOS13"
 
       - name: Get latest release macos-14
         run: |
-          RELEASE_MACOS14=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macos-14-arm64 |head -n1)
+          RELEASE_MACOS14=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macos-14-arm64 | head -n1)
           echo "$RELEASE_MACOS14" > macos-14.txt
           echo "$RELEASE_MACOS14"
 
       - name: Get latest release windows 2022
         run: |
-          RELEASE_WINDOWS=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep win22 |head -n1)
+          RELEASE_WINDOWS=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep win22 | head -n1)
           echo "$RELEASE_WINDOWS" > windows.txt
           echo "$RELEASE_WINDOWS"
 
