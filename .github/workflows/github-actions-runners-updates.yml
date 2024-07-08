@@ -48,7 +48,7 @@ jobs:
         run: |
           RELEASE_UBUNTU=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep ubuntu22 |head -n1)
           echo "$RELEASE_UBUNTU" > ubuntu.txt
-          echo "$RELEASE_UBUNTU"
+          echo "RELEASE_UBUNTU"
 
       - name: Get latest release macos-12
         run: |
