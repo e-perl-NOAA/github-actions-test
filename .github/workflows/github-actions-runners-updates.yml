@@ -28,6 +28,7 @@ jobs:
           RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
           RELEASES_ALL=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r) 
           echo "$RELEASES_ALL" |awk -F'/' '{print $1}'| sort -u  > releases_names_unique_new.txt
+          echo "$RELEASES_ALL"
       
       # - name: See if any there are any new runners based on the reference file
       #   id: runner_diff
@@ -47,7 +48,7 @@ jobs:
       - name: Get latest release ubuntu
         run: |
           RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
-          RELEASES_UBUNTU=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r| grep ubuntu22 | head -n1)
+          RELEASE_UBUNTU=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r| grep ubuntu22 | head -n1)
           echo "$RELEASE_UBUNTU" > ubuntu.txt
           echo "$RELEASE_UBUNTU"
 
