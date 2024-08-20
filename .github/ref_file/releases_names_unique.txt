@@ -1,3 +1,4 @@
+macos-12
 macos-13
 macos-13-arm64
 macos-14
