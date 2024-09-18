@@ -177,7 +177,8 @@ jobs:
       - name: Build stock synthesis for mac with admb docker image
         if: matrix.config.os == 'macos-12'
         run: |
-          brew reinstall --cask docker
+          brew install docker-machine docker
+          sudo docker --version
           colima start
           docker pull johnoel/admb-13.2:linux
 
