@@ -60,9 +60,17 @@ jobs:
         if: matrix.config.os == 'macos-13'
         run: |
           cd admb && make clean
-          ls
+      - name: See where admb is
+        if: matrix.config.os == 'macos-13'
+        run: |
           cd admb && ls
+      - name: Compile admb, macOS
+        if: matrix.config.os == 'macos-13'
+        run: |
           cd admb && make -j 4
+      - name: Change permissions of admb and put in path, macOS
+        if: matrix.config.os == 'macos-13'
+        run: |
           sudo mv admb /usr/local/bin
           sudo chmod 755 /usr/local/bin/admb
           echo "/usr/local/bin/admb" >> $GITHUB_PATH
