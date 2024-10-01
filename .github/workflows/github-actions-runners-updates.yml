@@ -75,6 +75,13 @@ jobs:
           echo "$RELEASE_MACOS14" > macos-14.txt
           echo "$RELEASE_MACOS14"
 
+      - name: Get latest release macos-15
+        run: |
+          RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
+          RELEASE_MACOS15=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macos-15-arm64 | head -n1)
+          echo "$RELEASE_MACOS15" > macos-15.txt
+          echo "$RELEASE_MACOS15"
+          
       - name: Get latest release windows 2022
         run: |
           RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
@@ -89,9 +96,10 @@ jobs:
           macos12 <- readLines("macos-12.txt")
           macos13 <- readLines("macos-13.txt")
           macos14 <- readLines("macos-14.txt")
+          macos15 <- readLines("macos-15.txt")
           windows <- readLines("windows.txt")
 
-          all_os <- capture.output(cat(ubuntu, macos12, macos13, macos14, windows, sep = "\n"))
+          all_os <- capture.output(cat(ubuntu, macos12, macos13, macos14, macos15, windows, sep = "\n"))
           file.create("all_os_versions_new.txt")
           writeLines(all_os, "all_os_versions_new.txt")
 
@@ -110,17 +118,9 @@ jobs:
       - name: Move new version of runner versions and unique runner names
         if: steps.version_diff.outputs.output_ver == 'differences in runner versions' || steps.runner_diff.outputs.output_runners == 'differences in runners'
         run: |
-          rm ubuntu.txt macos-12.txt macos-13.txt macos-14.txt windows.txt
+          rm ubuntu.txt macos-12.txt macos-13.txt macos-14.txt macos-15.txt windows.txt
           mv all_os_versions_new.txt .github/ref_file/all_os_versions.txt
           mv releases_names_unique_new.txt .github/ref_file/releases_names_unique.txt
-
-      # - name: add new ref files and commit
-      #   uses: EndBug/add-and-commit@v9
-      #   if: steps.version_diff.outputs.output_ver == 'differences in runner versions' || steps.runner_diff.outputs.output_runners == 'differences in runners'
-      #   with:
-      #     message: 'update GitHub actions runner versions'
-      #     add: .github/ref_file/all_os_versions.txt .github/ref_file/releases_names_unique.txt
-      #     default_author: github_actions
 
       - name: Create artifact of runner name differences
         if: steps.runner_diff.outputs.output_runners == 'differences in runners'
@@ -168,10 +168,3 @@ jobs:
           echo 'Running build-ss3.yml and build-admb-and-ss3.yml to make sure they still work with updated runner versions' 
           echo 'If runner names have changed you will need to add or takeaway the changed runners to make sure the workflows still run'
           exit 1
-# add the following to build-ss3.yml and build-admb-and-ss3-from-source.yml
-# on:
-#  workflow_run:
-#    workflows: [github-actions-runners-updates]
-#    types: [completed]
-# name-of-job:
-#    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
