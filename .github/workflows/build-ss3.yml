@@ -51,8 +51,8 @@ jobs:
       - name: Setup macos-15 xcode install
         if: matrix.config.os == 'macos-15'
         run: |
-          sudo xcode-select --install
-          sudo brew install llvm
+          xcode-select --install
+          brew install llvm
         
       - name: Setup R
         uses: r-lib/actions/setup-r@v2
