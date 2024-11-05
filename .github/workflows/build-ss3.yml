@@ -51,6 +51,7 @@ jobs:
       - name: Setup macos-15 xcode install
         if: matrix.config.os == 'macos-15'
         run: |
+          sudo rm -rf /Library/Developer/CommandLineTools
           xcode-select --install
           brew install llvm
         
