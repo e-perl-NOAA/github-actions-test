@@ -7,8 +7,8 @@ jobs:
     
   release:
     runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    # env:
+    #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
     steps: 
         
@@ -17,76 +17,77 @@ jobs:
         with:
           fetch-depth: 0
           
-      - name: Application Version
-        id: version
-        uses: paulhatch/semantic-version@v5.0.2
-        with:
-          tag_prefix: "v"
-          version_format: "v${major}.${minor}.${patch}"
+      # - name: Application Version
+      #   id: version
+      #   uses: paulhatch/semantic-version@v5.0.2
+      #   with:
+      #     tag_prefix: "v"
+      #     version_format: "v${major}.${minor}.${patch}"
       
-      - name: Create version.txt
-        run: echo ${{ steps.version.outputs.version }} > version.txt
+      # - name: Create version.txt
+      #   run: echo ${{ steps.version.outputs.version }} > version.txt
       
       - name: Update version in index.md
         run: |
-          version <- readLines("version.txt", encoding = "UTF-8")
-          index <- readLines("docs/index.md", encoding = "UTF-8")
-          version <- gsub("v", "", version)
-          index[6] <- gsub("[0-9].[0-9][0-9].[0-9][0-9]", version, index[6])
-          index[7] <- gsub("[0-9].[0-9][0-9].[0-9][0-9]", version, index[7])
-          writeLines(index, "docs/index.md")
-          writeLines(index, "index.md")
+          getwd()
+          # version <- readLines("version.txt", encoding = "UTF-8")
+          # index <- readLines("docs/index.md", encoding = "UTF-8")
+          # version <- gsub("v", "", version)
+          # index[6] <- gsub("[0-9].[0-9][0-9].[0-9][0-9]", version, index[6])
+          # index[7] <- gsub("[0-9].[0-9][0-9].[0-9][0-9]", version, index[7])
+          # writeLines(index, "docs/index.md")
+          # writeLines(index, "index.md")
         shell: Rscript {0}
 
-      - name: Commit changes to docs folder
-        uses: EndBug/add-and-commit@v9
-        with: 
-          add: './docs/index.md'
-          message: 'update index version in docs folder'
+      # - name: Commit changes to docs folder
+      #   uses: EndBug/add-and-commit@v9
+      #   with: 
+      #     add: './docs/index.md'
+      #     message: 'update index version in docs folder'
 
-      - name: Commit changes to main repo
-        uses: EndBug/add-and-commit@v9
-        with: 
-          add: 'index.md'
-          message: 'update index version in main repo'
+      # - name: Commit changes to main repo
+      #   uses: EndBug/add-and-commit@v9
+      #   with: 
+      #     add: 'index.md'
+      #     message: 'update index version in main repo'
 
-      - name: Build release artifact
-        run: |
-          echo "Hello, world!" > sample1.txt
+      # - name: Build release artifact
+      #   run: |
+      #     echo "Hello, world!" > sample1.txt
 
-      - name: Build another release artifact
-        run: |
-          echo "Hello, outer space!" > sample2.txt
+      # - name: Build another release artifact
+      #   run: |
+      #     echo "Hello, outer space!" > sample2.txt
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        with:
-          tag_name: ${{ steps.version.outputs.version }}
-          release_name: ${{ steps.version.outputs.version }} Docs
-          draft: false
-          prerelease: false
+      # - name: Create Release
+      #   id: create_release
+      #   uses: actions/create-release@v1
+      #   with:
+      #     tag_name: ${{ steps.version.outputs.version }}
+      #     release_name: ${{ steps.version.outputs.version }} Docs
+      #     draft: false
+      #     prerelease: false
           
-      - name: Upload release artifact 1
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./sample1.txt
-          asset_name: sample1.txt
-          asset_content_type: application/txt
+      # - name: Upload release artifact 1
+      #   uses: actions/upload-release-asset@v1
+      #   with:
+      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+      #     asset_path: ./sample1.txt
+      #     asset_name: sample1.txt
+      #     asset_content_type: application/txt
       
-      - name: Upload release artifact 2
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./sample2.txt
-          asset_name: sample2.txt
-          asset_content_type: application/txt
+      # - name: Upload release artifact 2
+      #   uses: actions/upload-release-asset@v1
+      #   with:
+      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+      #     asset_path: ./sample2.txt
+      #     asset_name: sample2.txt
+      #     asset_content_type: application/txt
 
-      - name: Upload release artifact 3
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./index.md
-          asset_name: index.md
-          asset_content_type: application/md
+      # - name: Upload release artifact 3
+      #   uses: actions/upload-release-asset@v1
+      #   with:
+      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+      #     asset_path: ./index.md
+      #     asset_name: index.md
+      #     asset_content_type: application/md
