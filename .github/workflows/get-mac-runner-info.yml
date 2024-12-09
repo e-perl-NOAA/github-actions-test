@@ -16,5 +16,7 @@ jobs:
         run: |
           getwd()
           Sys.info()
+          newdir <- tempdir()
+          newdir
           
         shell: Rscript {0}
