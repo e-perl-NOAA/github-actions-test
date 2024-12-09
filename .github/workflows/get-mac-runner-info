@@ -1,0 +1,20 @@
+name: Release
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  get-macos-info:
+    runs-on: macos-latest
+    steps:
+
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v2
+
+      - name: get macos runner info
+        run: |
+          getwd()
+          Sys.info()
+          
+        shell: Rscript {0}
