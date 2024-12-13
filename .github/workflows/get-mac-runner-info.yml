@@ -18,5 +18,7 @@ jobs:
           Sys.info()
           newdir <- tempdir()
           newdir
+          temp_path <- file.path(tempdir(), "test_ss3_exe")
+          temp_path
           
         shell: Rscript {0}
