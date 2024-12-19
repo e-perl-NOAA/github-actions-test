@@ -1,18 +1,19 @@
+# Builds the stock synthesis executables for testing and distribution using the admb docker image.
+# for macOS 12, and macos-14 (arm64 architecture), linux, Windows
+# Runs on every push and PR (even draft PRs)
 name: build-ss3
 
 on:
     push:
-      paths:
-      - '**.tpl'
-      - '**.sh'
+      # paths:
+      # - '**.tpl'
+      # - '**.sh'
     workflow_dispatch:
-    workflow_run:
-      workflows: ["github-actions-runners-updates"]
-      types:
-        - completed
+
+
 jobs:
   build-ss3:
-    if: ${{ github.event_name == 'workflow_dispatch' || github.event == 'push' || github.event.workflow_run.conclusion == 'failure' }}
+    # if: ${{ github.event_name == 'workflow_dispatch' || github.event == 'push' || github.event.workflow_run.conclusion == 'failure' }}
     runs-on: ${{ matrix.config.os }}
     name: ${{ matrix.config.os }}
     strategy:
@@ -22,8 +23,8 @@ jobs:
           - {os: windows-latest}
           - {os: macos-13}
           - {os: macos-latest}
-          - {os: macos-15}
           - {os: ubuntu-latest}
+          - {os: windows-2025}
     # Limit run time to 90 min to avoid wasting action minutes.
     # was set to 15 and then 30 minutes previously, but compiling admb
     # on mac took too long
@@ -47,7 +48,7 @@ jobs:
       - name: Update Ubuntu packages
         if: matrix.config.os == 'ubuntu-latest'
         run: sudo apt-get update
-        
+      
       - name: Setup R
         uses: r-lib/actions/setup-r@v2
           
@@ -58,19 +59,19 @@ jobs:
           
       # Build ADMB for macos-13
       - name: Build ADMB for macos-13 and put in path
-        if: matrix.config.os == 'macos-13' || matrix.config.os == 'macos-latest' || matrix.config.os == 'macos-15'
+        if: matrix.config.os == 'macos-13' || matrix.config.os == 'macos-latest'
         run: |
           cd admb && make clean
       - name: See where admb is
-        if: matrix.config.os == 'macos-13' || matrix.config.os == 'macos-latest' || matrix.config.os == 'macos-15'
+        if: matrix.config.os == 'macos-13' || matrix.config.os == 'macos-latest'
         run: |
           cd admb && ls
       - name: Compile admb, macOS
-        if: matrix.config.os == 'macos-13' || matrix.config.os == 'macos-latest' || matrix.config.os == 'macos-15'
+        if: matrix.config.os == 'macos-13' || matrix.config.os == 'macos-latest'
         run: |
           cd admb && make -j 4
       - name: Change permissions of admb and put in path, macOS
-        if: matrix.config.os == 'macos-13' || matrix.config.os == 'macos-latest' || matrix.config.os == 'macos-15'
+        if: matrix.config.os == 'macos-13' || matrix.config.os == 'macos-latest'
         run: |
           sudo mv admb /usr/local/bin
           sudo chmod 755 /usr/local/bin/admb
@@ -78,7 +79,7 @@ jobs:
           
       - name: Get the last tag on Windows
         id: get-latest-tag-win
-        if: matrix.config.os == 'windows-latest'
+        if: matrix.config.os == 'windows-latest' || matrix.config.os == 'windows-2025'
         run: |
           git tag
           $latest_tag = (git describe --abbrev=0 --tags)
@@ -90,7 +91,7 @@ jobs:
 
       - name: Pull the last tag value to use in the Rscript on Windows
         id: get-version-win
-        if: matrix.config.os == 'windows-latest'
+        if: matrix.config.os == 'windows-latest' || matrix.config.os == 'windows-2025'
         run: |
           Out-File -InputObject ${{ steps.get-latest-tag-win.outputs.tag }} -FilePath .github/last_tag.txt
           Out-File -InputObject ${{ steps.get-latest-tag-win.outputs.tag_commit }} -FilePath .github/last_tag_commit.txt
@@ -98,7 +99,7 @@ jobs:
 
       - name: Get the last tag on unix (macOS and linux)
         id: get-latest-tag-unix
-        if: matrix.config.os == 'macos-13' || matrix.config.os == 'macos-latest' || matrix.config.os == 'macos-15' || matrix.config.os == 'ubuntu-latest'
+        if: matrix.config.os == 'macos-13' || matrix.config.os == 'macos-latest' || matrix.config.os == 'ubuntu-latest'
         run: |
           git tag
           latest_tag=$(git describe --abbrev=0 --tags)
@@ -110,7 +111,7 @@ jobs:
 
       - name: Pull the last tag value to use in the Rscript on unix (macOS and linux)
         id: get-version-unix
-        if: matrix.config.os == 'macos-13' || matrix.config.os == 'macos-latest' || matrix.config.os == 'macos-15' || matrix.config.os == 'ubuntu-latest'
+        if: matrix.config.os == 'macos-13' || matrix.config.os == 'macos-latest' || matrix.config.os == 'ubuntu-latest'
         run: |
           echo "${{ steps.get-latest-tag-unix.outputs.tag }}" > .github/last_tag.txt
           echo "${{ steps.get-latest-tag-unix.outputs.tag_commit }}" > .github/last_tag_commit.txt
@@ -181,7 +182,7 @@ jobs:
         shell: Rscript {0}
 
       - name: Build stock synthesis for windows with admb docker image
-        if: matrix.config.os == 'windows-latest'
+        if: matrix.config.os == 'windows-latest' || matrix.config.os == 'windows-2025'
         run: |
           cd Compile
           ./Make_SS_fast.bat || true
@@ -189,7 +190,7 @@ jobs:
           cd ..
 
       - name: Move exes to a new folder on windows
-        if: matrix.config.os == 'windows-latest'
+        if: matrix.config.os == 'windows-latest' || matrix.config.os == 'windows-2025'
         run: |
           mkdir SS330
           chmod 777 SS330
@@ -198,9 +199,8 @@ jobs:
           mv SS330/ss3.exe SS330/ss3_win.exe
           mv SS330/ss3_opt.exe SS330/ss3_opt_win.exe
 
-
       - name: Build stock synthesis for mac with admb from source
-        if: matrix.config.os == 'macos-13' || matrix.config.os == 'macos-latest' || matrix.config.os == 'macos-15'
+        if: matrix.config.os == 'macos-13' || matrix.config.os == 'macos-latest'
         run: |
           rm -rf SS330
           rm -rf ss3_osx.tar
@@ -210,7 +210,7 @@ jobs:
           /bin/bash ./Make_SS_330_new.sh -b SS330 -o
 
       # - name: Build stock synthesis for mac m2 with admb docker image
-      #   if: matrix.config.os == 'macos-latest' || matrix.config.os == 'macos-15'
+      #   if: matrix.config.os == 'macos-latest'
       #   run: |
       #     brew update
       #     brew install docker
@@ -226,13 +226,13 @@ jobs:
       #     /bin/bash ./Make_SS_330_new.sh --admb docker -b SS330 -o
 
       - name: Verify binary on mac
-        if: matrix.config.os == 'macos-13' || matrix.config.os == 'macos-latest' || matrix.config.os == 'macos-15'
+        if: matrix.config.os == 'macos-13' || matrix.config.os == 'macos-latest'
         run: |
           shasum -a 256 SS330/ss3
           shasum -a 256 SS330/ss3_opt
           
       - name: Delete unneeded files and change exe names on mac
-        if: matrix.config.os == 'macos-13' || matrix.config.os == 'macos-latest' || matrix.config.os == 'macos-15'
+        if: matrix.config.os == 'macos-13' || matrix.config.os == 'macos-latest'
         run: |
           cd SS330
           rm *.obj *.htp *.cpp ss3_opt.tpl ss3.tpl
@@ -269,3 +269,4 @@ jobs:
         with:
           name: ss3-${{ matrix.config.os }}
           path: SS330/
+
