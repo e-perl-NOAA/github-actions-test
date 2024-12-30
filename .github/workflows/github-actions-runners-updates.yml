@@ -44,7 +44,6 @@ jobs:
           runner_names_compare <- all_runners_new[all_runners_new != all_runners_previous]
           file.create("runner_names_compare.txt")
           writeLines(runner_names_compare, "runner_names_compare.txt")
-          # cat(sprintf('diff_runners=%s', all_runners_new[all_runners_new != all_runners_previous]), file = Sys.getenv("GITHUB_OUTPUT"), append = TRUE)
         shell: Rscript {0}
 
       - name: Get latest release ubuntu
@@ -53,14 +52,6 @@ jobs:
           RELEASE_UBUNTU=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r| grep ubuntu22 | head -n1)
           echo "$RELEASE_UBUNTU" > ubuntu.txt
           echo "$RELEASE_UBUNTU"
-
-      # Macos-12 is no longer maintained as a github action runner
-      # - name: Get latest release macos-12
-      #   run: |
-      #     RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
-      #     RELEASE_MACOS12=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep macos-12 | head -n1)
-      #     echo "$RELEASE_MACOS12" > macos-12.txt
-      #     echo "$RELEASE_MACOS12"
       
       - name: Get latest release macos-13
         run: |
