@@ -23,6 +23,9 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v2
+        
       - name: Get all github actions runner releases and list the unique runner names (not including pre-releases)
         run: |
           RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
