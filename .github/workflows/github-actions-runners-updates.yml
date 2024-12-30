@@ -87,7 +87,7 @@ jobs:
       - name: Get latest release windows 2025
         run: |
           RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
-          RELEASE_WINDOWS=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep win25 | head -n1)
+          RELEASE_WINDOWS25=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r | grep win25 | head -n1)
           echo "$RELEASE_WINDOWS25" > windows25.txt
           echo "$RELEASE_WINDOWS25"
 
