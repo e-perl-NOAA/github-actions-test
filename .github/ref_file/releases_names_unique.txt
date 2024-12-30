@@ -9,3 +9,4 @@ ubuntu22
 ubuntu24
 win19
 win22
+win25
