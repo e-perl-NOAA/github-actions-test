@@ -49,12 +49,19 @@ jobs:
           writeLines(runner_names_compare, "runner_names_compare.txt")
         shell: Rscript {0}
 
-      - name: Get latest release ubuntu
+      - name: Get latest release ubuntu 22
         run: |
           RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
-          RELEASE_UBUNTU=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r| grep ubuntu22 | head -n1)
-          echo "$RELEASE_UBUNTU" > ubuntu.txt
-          echo "$RELEASE_UBUNTU"
+          RELEASE_UBUNTU22=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r| grep ubuntu22 | head -n1)
+          echo "$RELEASE_UBUNTU22" > ubuntu22.txt
+          echo "$RELEASE_UBUNTU22"
+
+      - name: Get latest release ubuntu 24
+        run: |
+          RELEASES=$(curl -s https://api.github.com/repos/actions/runner-images/releases)
+          RELEASE_UBUNTU24=$(echo "$RELEASES" | jq -r '.[] | select(.prerelease == false) | .tag_name' | sort -r| grep ubuntu24 | head -n1)
+          echo "$RELEASE_UBUNTU24" > ubuntu24.txt
+          echo "$RELEASE_UBUNTU24"
       
       - name: Get latest release macos-13
         run: |
@@ -94,14 +101,15 @@ jobs:
       - name: Read in txt files of releases and see if there are any differences in release versions from the reference file
         id: version_diff
         run: |
-          ubuntu <- readLines("ubuntu.txt")
+          ubuntu22 <- readLines("ubuntu22.txt")
+          ubuntu24 <- readLines("ubuntu24.txt")
           macos13 <- readLines("macos-13.txt")
           macos14 <- readLines("macos-14.txt")
           macos15 <- readLines("macos-15.txt")
           windows <- readLines("windows.txt")
           windows25 <- readLines("windows25.txt")
 
-          all_os <- capture.output(cat(ubuntu, macos13, macos14, macos15, windows, windows25, sep = "\n"))
+          all_os <- capture.output(cat(ubuntu22, ubuntu24, macos13, macos14, macos15, windows, windows25, sep = "\n"))
           file.create("all_os_versions_new.txt")
           writeLines(all_os, "all_os_versions_new.txt")
 
@@ -120,7 +128,7 @@ jobs:
       - name: Move new version of runner versions and unique runner names
         if: steps.version_diff.outputs.output_ver == 'differences in runner versions' || steps.runner_diff.outputs.output_runners == 'differences in runners'
         run: |
-          rm ubuntu.txt macos-13.txt macos-14.txt macos-15.txt windows.txt windows25.txt
+          rm ubuntu22.txt ubuntu24.txt macos-13.txt macos-14.txt macos-15.txt windows.txt windows25.txt
           mv all_os_versions_new.txt .github/ref_file/all_os_versions.txt
           mv releases_names_unique_new.txt .github/ref_file/releases_names_unique.txt
 
