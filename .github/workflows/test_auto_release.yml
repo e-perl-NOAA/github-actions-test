@@ -7,8 +7,8 @@ jobs:
     
   release:
     runs-on: ubuntu-latest
-    # env:
-    #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
     steps: 
         
@@ -17,39 +17,38 @@ jobs:
         with:
           fetch-depth: 0
           
-      # - name: Application Version
-      #   id: version
-      #   uses: paulhatch/semantic-version@v5.0.2
-      #   with:
-      #     tag_prefix: "v"
-      #     version_format: "v${major}.${minor}.${patch}"
+      - name: Application Version
+        id: version
+        uses: paulhatch/semantic-version@v5.0.2
+        with:
+          tag_prefix: "v"
+          version_format: "v${major}.${minor}.${patch}"
       
-      # - name: Create version.txt
-      #   run: echo ${{ steps.version.outputs.version }} > version.txt
+      - name: Create version.txt
+        run: echo ${{ steps.version.outputs.version }} > version.txt
       
       - name: Update version in index.md
         run: |
-          getwd()
-          # version <- readLines("version.txt", encoding = "UTF-8")
-          # index <- readLines("docs/index.md", encoding = "UTF-8")
-          # version <- gsub("v", "", version)
-          # index[6] <- gsub("[0-9].[0-9][0-9].[0-9][0-9]", version, index[6])
-          # index[7] <- gsub("[0-9].[0-9][0-9].[0-9][0-9]", version, index[7])
-          # writeLines(index, "docs/index.md")
-          # writeLines(index, "index.md")
+          version <- readLines("version.txt", encoding = "UTF-8")
+          index <- readLines("docs/index.md", encoding = "UTF-8")
+          version <- gsub("v", "", version)
+          index[6] <- gsub("[0-9].[0-9][0-9].[0-9][0-9]", version, index[6])
+          index[7] <- gsub("[0-9].[0-9][0-9].[0-9][0-9]", version, index[7])
+          writeLines(index, "docs/index.md")
+          writeLines(index, "index.md")
         shell: Rscript {0}
 
-      # - name: Commit changes to docs folder
-      #   uses: EndBug/add-and-commit@v9
-      #   with: 
-      #     add: './docs/index.md'
-      #     message: 'update index version in docs folder'
+      - name: Commit changes to docs folder
+        uses: EndBug/add-and-commit@v9
+        with: 
+          add: './docs/index.md'
+          message: 'update index version in docs folder'
 
-      # - name: Commit changes to main repo
-      #   uses: EndBug/add-and-commit@v9
-      #   with: 
-      #     add: 'index.md'
-      #     message: 'update index version in main repo'
+      - name: Commit changes to main repo
+        uses: EndBug/add-and-commit@v9
+        with: 
+          add: 'index.md'
+          message: 'update index version in main repo'
 
       # - name: Build release artifact
       #   run: |
