@@ -15,7 +15,7 @@ jobs:
       - uses: actions/create-github-app-token@v1
         id: app-token
         with:
-          app-id: ${{ vars.APP_ID }}
+          app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.BYPASS_BRANCH_PR_RULE }}
           
       - uses: actions/checkout@v4
