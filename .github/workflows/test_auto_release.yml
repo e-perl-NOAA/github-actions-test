@@ -28,7 +28,7 @@ jobs:
           
       - name: Application Version
         id: version
-        uses: paulhatch/semantic-version@v5.0.2
+        uses: paulhatch/semantic-version@v5.4.0
         with:
           tag_prefix: "v"
           version_format: "v${major}.${minor}.${patch}"
@@ -43,6 +43,7 @@ jobs:
           version <- gsub("v", "", version)
           index[6] <- gsub("[0-9].[0-9][0-9].[0-9][0-9]", version, index[6])
           index[7] <- gsub("[0-9].[0-9][0-9].[0-9][0-9]", version, index[7])
+          index[8] <- "TEST"
           writeLines(index, "docs/index.md")
           writeLines(index, "index.md")
         shell: Rscript {0}
@@ -51,7 +52,7 @@ jobs:
         uses: EndBug/add-and-commit@v9
         with: 
           add: './docs/index.md'
-          message: 'update index version in docs folder'
+          message: 'update index version in docs folder NEW'
 
       - name: Commit changes to main repo
         uses: EndBug/add-and-commit@v9
