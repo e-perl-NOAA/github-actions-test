@@ -16,6 +16,6 @@ jobs:
 
       - name: get repo name and github.io name
         run: |
-          gh run --repo ${{ github.repository }} 
-          gh run --repo ${{ github.repositoryUrl }}
+          echo ${{ github.repository }} 
+          echo ${{ github.repositoryUrl }}
           url=$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq '.html_url')
