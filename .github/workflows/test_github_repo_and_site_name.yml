@@ -1,0 +1,21 @@
+name: get-repo-and-site-name
+
+on:
+  push:
+
+jobs:
+    
+  get-repo-site-name:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+    steps: 
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: get repo name and github.io name
+        run: |
+          gh run --repo ${{ github.repository }} 
+          gh run --repo ${{ github.repositoryUrl }}
+          url=$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq '.html_url')
