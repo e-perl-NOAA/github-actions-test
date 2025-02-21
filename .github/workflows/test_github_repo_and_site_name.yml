@@ -19,3 +19,4 @@ jobs:
           echo ${{ github.repository }} 
           echo ${{ github.repositoryUrl }}
           url=$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq '.html_url')
+          echo url
