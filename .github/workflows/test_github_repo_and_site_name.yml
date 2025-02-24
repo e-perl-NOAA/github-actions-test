@@ -13,10 +13,18 @@ jobs:
     steps: 
       - name: Checkout repo
         uses: actions/checkout@v4
-
+        
+      - name: Set up R (needed for Rmd)
+        uses: r-lib/actions/setup-r@v2
+        
       - name: get repo name and github.io name
+        id: get-repo-url-and-io-url
         run: |
-          echo ${{ github.repository }} 
-          echo ${{ github.repositoryUrl }}
-          url=$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq '.html_url')
-          echo "${url}"
+          echo "site = ${{ github.repository }}" >> "$GITHUB_OUTPUT"
+          echo "io_url=$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq '.html_url')" >> "$GITHUB_OUTPUT"
+
+      - name: Edit quarto.yml with correct site.
+        run: |
+          output <- readLines(Sys.getenv("GITHUB_OUTPUT"))
+          output
+        shell: Rscript {0}
