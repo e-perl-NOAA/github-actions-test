@@ -28,7 +28,7 @@ jobs:
           URL: ${{ env.io_url }}
         run: |
           text_file <- readLines("index.md")
-          text_file[9] <- Sys.getenv('SITE')
+          text_file[9] <- paste0("https://github.com/", Sys.getenv('SITE'))
           text_file[10] <- Sys.getenv('URL')
           text_file
         shell: Rscript {0}
