@@ -3,10 +3,6 @@ macos-13-arm64
 macos-14
 macos-14-arm64
 macos-15
-macos-15-arm64
 ubuntu20
 ubuntu22
 ubuntu24
-win19
-win22
-win25
