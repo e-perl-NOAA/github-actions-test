@@ -189,6 +189,11 @@ jobs:
           ./Make_SS_safe.bat || true
           cd ..
 
+      - name: list files in windows latest
+        if: matrix.config.os == 'windows-latest'
+        run: |
+          dir Compile
+          
       - name: Move exes to a new folder on windows
         if: matrix.config.os == 'windows-latest' || matrix.config.os == 'windows-2025'
         run: |
