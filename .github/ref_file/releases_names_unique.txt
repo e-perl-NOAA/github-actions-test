@@ -2,6 +2,7 @@ macos-14
 macos-14-arm64
 macos-15
 macos-15-arm64
+macos-26
 macos-26-arm64
 ubuntu22
 ubuntu24
