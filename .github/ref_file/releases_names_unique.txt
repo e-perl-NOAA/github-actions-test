@@ -8,3 +8,4 @@ ubuntu22
 ubuntu24
 win22
 win25
+win25-vs2026
